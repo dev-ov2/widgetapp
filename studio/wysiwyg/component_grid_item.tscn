@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://blsb0y4x6kgv5"]
+
+[ext_resource type="Script" uid="uid://l2rrupo1ro45" path="res://studio/wysiwyg/component_grid_item.gd" id="1_evld7"]
+
+[sub_resource type="FontVariation" id="FontVariation_ym4bx"]
+spacing_space = 170
+spacing_top = -6
+spacing_bottom = -5
+
+[node name="ComponentGridItem" type="Control" unique_id=482587443]
+custom_minimum_size = Vector2(64, 72)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1088.0
+offset_bottom = -576.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_evld7")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1677616075]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=209176630]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="PanelContainer/VBoxContainer" unique_id=1806257447]
+custom_minimum_size = Vector2(64, 48)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer" unique_id=1739961023]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_fonts/font = SubResource("FontVariation_ym4bx")
+theme_override_font_sizes/font_size = 12
+text = "Button"
+horizontal_alignment = 1
+autowrap_mode = 1

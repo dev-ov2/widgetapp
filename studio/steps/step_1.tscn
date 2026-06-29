@@ -1,0 +1,100 @@
+[gd_scene format=3 uid="uid://cm2btggsg56l3"]
+
+[ext_resource type="Theme" uid="uid://b6d33jjssn8f2" path="res://studio/studio_theme.tres" id="1_pab0b"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_j15jf"]
+color = Color(1, 1, 1, 0.3372549)
+vertical = true
+
+[node name="Step1" type="Control" unique_id=1316908645]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HSplitContainer" type="HSplitContainer" parent="." unique_id=596774509]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+theme_override_styles/split_bar_background = SubResource("StyleBoxLine_j15jf")
+dragging_enabled = false
+
+[node name="MarginContainer" type="MarginContainer" parent="HSplitContainer" unique_id=664215591]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="Panel" type="Panel" parent="HSplitContainer/MarginContainer" unique_id=429642623]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer/MarginContainer/Panel" unique_id=1484559258]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -78.5
+offset_bottom = 78.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="HSplitContainer/MarginContainer/Panel/VBoxContainer" unique_id=1253358205]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "New Widget..."
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="HSplitContainer/MarginContainer/Panel/VBoxContainer" unique_id=979333881]
+layout_mode = 2
+theme = ExtResource("1_pab0b")
+theme_type_variation = &"Subtitle"
+theme_override_font_sizes/font_size = 24
+text = "Create a new widget from a template or from scratch. It's up to you how the widget works!"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="HSplitContainer" unique_id=843389256]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="Panel" type="Panel" parent="HSplitContainer/MarginContainer2" unique_id=813440504]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer/MarginContainer2/Panel" unique_id=637847382]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -78.5
+offset_bottom = 78.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="HSplitContainer/MarginContainer2/Panel/VBoxContainer" unique_id=1956430991]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Edit Existing..."
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="HSplitContainer/MarginContainer2/Panel/VBoxContainer" unique_id=792109454]
+layout_mode = 2
+theme = ExtResource("1_pab0b")
+theme_type_variation = &"Subtitle"
+theme_override_font_sizes/font_size = 24
+text = "Choose an existing widget to modify and adjust. Fancing a change of pace?"
+horizontal_alignment = 1
+autowrap_mode = 2
