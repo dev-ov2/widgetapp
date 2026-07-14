@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://c1wr7faloth7q"]
+
+[ext_resource type="Script" uid="uid://bc2tucl1xdyo8" path="res://studio/wysiwyg/logic/scripts/logic_drag_node.gd" id="1_7e1i4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hgdmn"]
+bg_color = Color(0.14117648, 0.7882353, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lh8t4"]
+bg_color = Color(0, 0.18182543, 0.24385586, 1)
+
+[node name="ActionNode" type="GraphNode" unique_id=128530461]
+theme_override_styles/panel = SubResource("StyleBoxFlat_hgdmn")
+theme_override_styles/titlebar = SubResource("StyleBoxFlat_lh8t4")
+title = "Action"
+slot/0/left_enabled = false
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color(0, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+script = ExtResource("1_7e1i4")
+theme_override_styles/panel = SubResource("StyleBoxFlat_hgdmn")
+theme_override_styles/titlebar = SubResource("StyleBoxFlat_lh8t4")
+slot/0/left_enabled = false
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color(0, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+
+[node name="OptionButton" type="OptionButton" parent="." unique_id=58008858]
+layout_mode = 2

@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://cp0ret5xkdrl2"]
+
+[node name="Button" type="VBoxContainer" unique_id=1673941604]
+offset_right = 240.0
+offset_bottom = 68.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1175365718]
+layout_mode = 2
+
+[node name="TextLineEdit" type="LineEdit" parent="HBoxContainer" unique_id=2086482101]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(146, 32)
+layout_mode = 2
+placeholder_text = "Label"
+
+[node name="Label" type="Label" parent="HBoxContainer" unique_id=1193457191]
+layout_mode = 2
+text = "Label"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="." unique_id=1793208307]
+layout_mode = 2
+
+[node name="ClickActionOptionButton" type="OptionButton" parent="HBoxContainer2" unique_id=537815403]
+unique_name_in_owner = true
+clip_contents = true
+custom_minimum_size = Vector2(146, 32)
+layout_mode = 2
+size_flags_horizontal = 0
+selected = 0
+fit_to_longest_item = false
+item_count = 2
+popup/item_0/text = "Open Shop"
+popup/item_0/id = 0
+popup/item_1/text = "Custom Function (TODO)..."
+popup/item_1/id = 1
+
+[node name="Label" type="Label" parent="HBoxContainer2" unique_id=799023236]
+layout_mode = 2
+text = "Click Action"

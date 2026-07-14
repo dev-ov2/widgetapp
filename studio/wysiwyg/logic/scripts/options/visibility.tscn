@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://b2v6xu87rqdq2"]
+
+[ext_resource type="Script" uid="uid://bnvjuwhx3y8r4" path="res://studio/wysiwyg/logic/scripts/options/visibility.gd" id="1_ty5rm"]
+
+[node name="Visibility" type="VBoxContainer" unique_id=908477139]
+offset_right = 256.0
+offset_bottom = 32.0
+script = ExtResource("1_ty5rm")
+
+[node name="BaseContainer" type="HBoxContainer" parent="." unique_id=1327533645]
+layout_mode = 2
+
+[node name="SourceOptionButton" type="OptionButton" parent="BaseContainer" unique_id=877986428]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(256, 32)
+layout_mode = 2
+fit_to_longest_item = false
+item_count = 1
+popup/item_0/text = "Choose a component..."
+popup/item_0/id = 999
+popup/item_0/disabled = true
+
+[node name="DependencyContainer" type="HBoxContainer" parent="." unique_id=303269650]
+visible = false
+layout_mode = 2
+
+[node name="StatusOptionButton" type="OptionButton" parent="DependencyContainer" unique_id=356264754]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(256, 32)
+layout_mode = 2
+selected = 0
+fit_to_longest_item = false
+item_count = 2
+popup/item_0/text = "Visible"
+popup/item_0/id = 0
+popup/item_1/text = "Invisible"
+popup/item_1/id = 1
+
+[node name="EffectContainer" type="HBoxContainer" parent="." unique_id=707123287]
+visible = false
+layout_mode = 2
+
+[node name="OutcomeOptionButton" type="OptionButton" parent="EffectContainer" unique_id=1086018434]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(256, 32)
+layout_mode = 2
+selected = 0
+fit_to_longest_item = false
+item_count = 2
+popup/item_0/text = "Set Visible"
+popup/item_0/id = 0
+popup/item_1/text = "Set Invisible"
+popup/item_1/id = 1

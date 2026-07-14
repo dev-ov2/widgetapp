@@ -1,0 +1,111 @@
+[gd_scene format=3 uid="uid://landingpage001"]
+
+[ext_resource type="Theme" uid="uid://b6d33jjssn8f2" path="res://studio/studio_theme.tres" id="1_theme"]
+[ext_resource type="Script" path="res://app/landing/landing_page.gd" id="2_script"]
+[ext_resource type="PackedScene" uid="uid://landingcard001" path="res://app/landing/landing_card.tscn" id="3_card"]
+[ext_resource type="Texture2D" uid="uid://d4cxhvgntyj4v" path="res://widget.png" id="4_icon"]
+
+[node name="LandingPage" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_theme")
+script = ExtResource("2_script")
+
+[node name="Background" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"Background"
+
+[node name="MarginContainer" type="MarginContainer" parent="Background"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 36
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 28
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 28
+
+[node name="BrandRow" type="HBoxContainer" parent="Background/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Icon" type="TextureRect" parent="Background/MarginContainer/VBoxContainer/BrandRow"]
+custom_minimum_size = Vector2(56, 56)
+layout_mode = 2
+texture = ExtResource("4_icon")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="BrandText" type="VBoxContainer" parent="Background/MarginContainer/VBoxContainer/BrandRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_constants/separation = 4
+
+[node name="Brand" type="Label" parent="Background/MarginContainer/VBoxContainer/BrandRow/BrandText"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Widget app"
+
+[node name="Tagline" type="Label" parent="Background/MarginContainer/VBoxContainer/BrandRow/BrandText"]
+layout_mode = 2
+theme_type_variation = &"Subtitle"
+text = "Desktop widgets, marketplace, and a studio — ready when you are."
+
+[node name="CardsRow" type="HBoxContainer" parent="Background/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="WidgetsCard" parent="Background/MarginContainer/VBoxContainer/CardsRow" instance=ExtResource("3_card")]
+unique_name_in_owner = true
+layout_mode = 2
+title = "Choose Widgets"
+description = "Pick which widgets are active on your desktop. Tweak scale, opacity, and placement."
+
+[node name="MarketplaceCard" parent="Background/MarginContainer/VBoxContainer/CardsRow" instance=ExtResource("3_card")]
+unique_name_in_owner = true
+layout_mode = 2
+title = "Marketplace"
+description = "Browse and install widgets from the Widgetry marketplace."
+
+[node name="StudioCard" parent="Background/MarginContainer/VBoxContainer/CardsRow" instance=ExtResource("3_card")]
+unique_name_in_owner = true
+layout_mode = 2
+title = "Studio"
+description = "Build and edit widgets with the WYSIWYG studio and logic editor."
+
+[node name="Footer" type="HBoxContainer" parent="Background/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="Prefs" type="VBoxContainer" parent="Background/MarginContainer/VBoxContainer/Footer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 6
+
+[node name="HideOnStartupCheck" type="CheckButton" parent="Background/MarginContainer/VBoxContainer/Footer/Prefs"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Don't show on startup"
+
+[node name="LaunchOnStartupCheck" type="CheckButton" parent="Background/MarginContainer/VBoxContainer/Footer/Prefs"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Start Widget app when your computer starts"

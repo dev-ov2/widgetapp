@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://djhgsf7c21gkt"]
+
+[ext_resource type="Script" uid="uid://bc2tucl1xdyo8" path="res://studio/wysiwyg/logic/scripts/logic_drag_node.gd" id="1_rexvh"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q8a5t"]
+bg_color = Color(0, 0.7259583, 0.18231079, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1inhp"]
+bg_color = Color(0, 0.20382318, 0.024962245, 1)
+
+[node name="EffectNode" type="GraphNode" unique_id=921905742]
+theme_override_styles/panel = SubResource("StyleBoxFlat_q8a5t")
+theme_override_styles/titlebar = SubResource("StyleBoxFlat_1inhp")
+title = "Side Effect"
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 0, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = false
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+script = ExtResource("1_rexvh")
+theme_override_styles/panel = SubResource("StyleBoxFlat_q8a5t")
+theme_override_styles/titlebar = SubResource("StyleBoxFlat_1inhp")
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 0, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = false
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+type = 2
+
+[node name="OptionButton" type="OptionButton" parent="." unique_id=1310464711]
+layout_mode = 2

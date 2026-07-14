@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://bqwp34jjwww5d"]
+
+[ext_resource type="Script" uid="uid://cy4bpgr6edpgh" path="res://app/widget_selection/chip.gd" id="1_3se88"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3se88"]
+bg_color = Color(0.6975, 0.54075, 0.2025, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
+[node name="Panel" type="PanelContainer" unique_id=1899359919]
+offset_right = 26.0
+offset_bottom = 23.0
+size_flags_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_3se88")
+script = ExtResource("1_3se88")
+color = Color(0.6975, 0.54075, 0.2025, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=50610280]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_right = 8
+
+[node name="Chip" type="Label" parent="MarginContainer" unique_id=638338879]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Shop"

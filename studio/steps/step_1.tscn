@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://cm2btggsg56l3"]
 
+[ext_resource type="Script" uid="uid://c7sgjdhuemtsj" path="res://studio/steps/step_1.gd" id="1_j15jf"]
 [ext_resource type="Theme" uid="uid://b6d33jjssn8f2" path="res://studio/studio_theme.tres" id="1_pab0b"]
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_j15jf"]
@@ -13,6 +14,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_j15jf")
 
 [node name="HSplitContainer" type="HSplitContainer" parent="." unique_id=596774509]
 layout_mode = 1
@@ -38,31 +40,45 @@ layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer/MarginContainer/Panel" unique_id=1484559258]
 layout_mode = 1
-anchors_preset = 14
-anchor_top = 0.5
+anchors_preset = 15
 anchor_right = 1.0
-anchor_bottom = 0.5
-offset_top = -78.5
-offset_bottom = 78.5
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Label" type="Label" parent="HSplitContainer/MarginContainer/Panel/VBoxContainer" unique_id=1253358205]
 layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "New Widget..."
-horizontal_alignment = 1
+text = "New Widget"
 
 [node name="Label2" type="Label" parent="HSplitContainer/MarginContainer/Panel/VBoxContainer" unique_id=979333881]
+custom_minimum_size = Vector2(128, 48)
 layout_mode = 2
 theme = ExtResource("1_pab0b")
 theme_type_variation = &"Subtitle"
-theme_override_font_sizes/font_size = 24
 text = "Create a new widget from a template or from scratch. It's up to you how the widget works!"
-horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="MarginContainer2" type="MarginContainer" parent="HSplitContainer" unique_id=843389256]
+[node name="HSeparator" type="HSeparator" parent="HSplitContainer/MarginContainer/Panel/VBoxContainer" unique_id=395126273]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HSplitContainer/MarginContainer/Panel/VBoxContainer" unique_id=1255674898]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="Panel" type="Panel" parent="HSplitContainer/MarginContainer/Panel/VBoxContainer/MarginContainer" unique_id=915170845]
+layout_mode = 2
+
+[node name="TemplateList" type="ItemList" parent="HSplitContainer/MarginContainer/Panel/VBoxContainer/MarginContainer" unique_id=1856060312]
+unique_name_in_owner = true
+layout_mode = 2
+item_count = 1
+item_0/text = "-- start from scratch --"
+
+[node name="MarginContainer3" type="MarginContainer" parent="HSplitContainer" unique_id=779905539]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_left = 32
@@ -70,31 +86,46 @@ theme_override_constants/margin_top = 32
 theme_override_constants/margin_right = 32
 theme_override_constants/margin_bottom = 32
 
-[node name="Panel" type="Panel" parent="HSplitContainer/MarginContainer2" unique_id=813440504]
+[node name="Panel" type="Panel" parent="HSplitContainer/MarginContainer3" unique_id=1403996622]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer/MarginContainer2/Panel" unique_id=637847382]
+[node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer/MarginContainer3/Panel" unique_id=52244818]
 layout_mode = 1
-anchors_preset = 14
-anchor_top = 0.5
+anchors_preset = 15
 anchor_right = 1.0
-anchor_bottom = 0.5
-offset_top = -78.5
-offset_bottom = 78.5
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="HSplitContainer/MarginContainer2/Panel/VBoxContainer" unique_id=1956430991]
+[node name="Label" type="Label" parent="HSplitContainer/MarginContainer3/Panel/VBoxContainer" unique_id=512784386]
 layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "Edit Existing..."
-horizontal_alignment = 1
+text = "Edit Existing"
 
-[node name="Label2" type="Label" parent="HSplitContainer/MarginContainer2/Panel/VBoxContainer" unique_id=792109454]
+[node name="Label2" type="Label" parent="HSplitContainer/MarginContainer3/Panel/VBoxContainer" unique_id=23490715]
+custom_minimum_size = Vector2(128, 48)
 layout_mode = 2
 theme = ExtResource("1_pab0b")
 theme_type_variation = &"Subtitle"
-theme_override_font_sizes/font_size = 24
-text = "Choose an existing widget to modify and adjust. Fancing a change of pace?"
-horizontal_alignment = 1
+text = "Choose an existing widget to modify and adjust. Fancying a change of pace?"
 autowrap_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="HSplitContainer/MarginContainer3/Panel/VBoxContainer" unique_id=1110912681]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HSplitContainer/MarginContainer3/Panel/VBoxContainer" unique_id=1885006982]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="Panel" type="Panel" parent="HSplitContainer/MarginContainer3/Panel/VBoxContainer/MarginContainer" unique_id=864420956]
+layout_mode = 2
+
+[node name="ExistingList" type="ItemList" parent="HSplitContainer/MarginContainer3/Panel/VBoxContainer/MarginContainer" unique_id=1830099454]
+unique_name_in_owner = true
+layout_mode = 2
+
+[connection signal="item_selected" from="HSplitContainer/MarginContainer/Panel/VBoxContainer/MarginContainer/TemplateList" to="." method="_on_template_list_item_selected"]
+[connection signal="item_selected" from="HSplitContainer/MarginContainer3/Panel/VBoxContainer/MarginContainer/ExistingList" to="." method="_on_existing_list_item_selected"]

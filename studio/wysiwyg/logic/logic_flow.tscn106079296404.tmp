@@ -1,0 +1,140 @@
+[gd_scene format=3 uid="uid://xllqjfc0lb17"]
+
+[ext_resource type="Theme" uid="uid://b6d33jjssn8f2" path="res://studio/studio_theme.tres" id="1_lh8t4"]
+[ext_resource type="Script" uid="uid://bb6il25qevf67" path="res://studio/wysiwyg/logic/logic_flow.gd" id="1_q8a5t"]
+[ext_resource type="Script" uid="uid://bc2tucl1xdyo8" path="res://studio/wysiwyg/logic/scripts/drag_node.gd" id="2_1inhp"]
+[ext_resource type="Script" uid="uid://b17dremh7p2ey" path="res://studio/wysiwyg/logic/logic_graph.gd" id="2_nige2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hgdmn"]
+bg_color = Color(0.14117648, 0.7882353, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lh8t4"]
+bg_color = Color(0, 0.18182543, 0.24385586, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nige2"]
+bg_color = Color(0.9913669, 0.79201597, 1.1551381e-06, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7ywx5"]
+bg_color = Color(0.19678319, 0.1486943, 2.4065375e-08, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q8a5t"]
+bg_color = Color(0, 0.7259583, 0.18231079, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1inhp"]
+bg_color = Color(0, 0.20382318, 0.024962245, 1)
+
+[node name="LogicFlow" type="Control" unique_id=42934804]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_q8a5t")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1660721071]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer" unique_id=1107483162]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/MarginContainer" unique_id=1613825440]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/MarginContainer/VBoxContainer" unique_id=1519799900]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/MarginContainer/VBoxContainer/VBoxContainer" unique_id=1408634376]
+layout_mode = 2
+text = "Available Nodes"
+
+[node name="Subtitle" type="Label" parent="HBoxContainer/MarginContainer/VBoxContainer/VBoxContainer" unique_id=1382517693]
+custom_minimum_size = Vector2(192, 0)
+layout_mode = 2
+theme = ExtResource("1_lh8t4")
+theme_type_variation = &"Subtitle"
+text = "Drag and drop nodes onto the graph and connect them to each other to customize widget logic"
+autowrap_mode = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer/MarginContainer/VBoxContainer" unique_id=54734281]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="ActionNode" type="GraphNode" parent="HBoxContainer/MarginContainer/VBoxContainer/VBoxContainer2" unique_id=1888487004]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hgdmn")
+theme_override_styles/titlebar = SubResource("StyleBoxFlat_lh8t4")
+title = "Action"
+slot/0/left_enabled = false
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color(0, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+script = ExtResource("2_1inhp")
+
+[node name="OptionButton" type="OptionButton" parent="HBoxContainer/MarginContainer/VBoxContainer/VBoxContainer2/ActionNode" unique_id=650559376]
+layout_mode = 2
+
+[node name="DependNode" type="GraphNode" parent="HBoxContainer/MarginContainer/VBoxContainer/VBoxContainer2" unique_id=1576343848]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_nige2")
+theme_override_styles/titlebar = SubResource("StyleBoxFlat_7ywx5")
+title = "Depends On"
+ignore_invalid_connection_type = true
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color(0, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 0, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+script = ExtResource("2_1inhp")
+type = 1
+
+[node name="OptionButton" type="OptionButton" parent="HBoxContainer/MarginContainer/VBoxContainer/VBoxContainer2/DependNode" unique_id=1625602422]
+layout_mode = 2
+
+[node name="EffectNode" type="GraphNode" parent="HBoxContainer/MarginContainer/VBoxContainer/VBoxContainer2" unique_id=2142747456]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_q8a5t")
+theme_override_styles/titlebar = SubResource("StyleBoxFlat_1inhp")
+title = "Side Effect"
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 0, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = false
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+script = ExtResource("2_1inhp")
+type = 2
+
+[node name="OptionButton" type="OptionButton" parent="HBoxContainer/MarginContainer/VBoxContainer/VBoxContainer2/EffectNode" unique_id=1570364357]
+layout_mode = 2
+
+[node name="GraphEdit" type="GraphEdit" parent="HBoxContainer" unique_id=1841243448]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("2_nige2")

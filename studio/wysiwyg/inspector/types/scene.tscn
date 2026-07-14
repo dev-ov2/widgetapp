@@ -1,0 +1,81 @@
+[gd_scene format=3 uid="uid://dxffmhwdewdgx"]
+
+[ext_resource type="Theme" uid="uid://b6d33jjssn8f2" path="res://studio/studio_theme.tres" id="1_2fxon"]
+
+[node name="Label" type="VBoxContainer" unique_id=2135805760]
+custom_minimum_size = Vector2(240, 0)
+offset_right = 240.0
+offset_bottom = 320.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1561583754]
+layout_mode = 2
+
+[node name="PackPathLineEdit" type="LineEdit" parent="HBoxContainer" unique_id=1976276548]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(132, 32)
+layout_mode = 2
+placeholder_text = "Pack Path"
+
+[node name="Label" type="Label" parent="HBoxContainer" unique_id=2046498937]
+layout_mode = 2
+text = "Pack Path"
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="." unique_id=1561583755]
+layout_mode = 2
+
+[node name="ScenePathLineEdit" type="LineEdit" parent="HBoxContainer4" unique_id=1976276549]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(132, 32)
+layout_mode = 2
+placeholder_text = "res://my_scene.tscn"
+
+[node name="Label" type="Label" parent="HBoxContainer4" unique_id=2046498938]
+layout_mode = 2
+text = "Scene Path"
+
+[node name="Label2" type="Label" parent="." unique_id=1573888866]
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+theme = ExtResource("1_2fxon")
+theme_type_variation = &"Subtitle"
+text = "Pack Path is a .pck or .zip relative to *your* mod folder in the Godot user directory (%appdata%/Godot/app_userdata/Widgetry/widgets/<your_widget_id>)
+
+Scene Path must match the scene's path *inside* the pack, including folders. If the zip contains drop-scene/coaster.tscn, use res://drop-scene/coaster.tscn (not res://coaster.tscn).
+
+To export a pack in Godot 4.6+: Project > Export, select a preset, then click Export PCK/ZIP and drop the file into your mod folder. (A normal Windows zip of loose .tscn files will not work.)
+
+If the scene doesn't seem to show up, please try changing the size of the component!"
+autowrap_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="." unique_id=1320887353]
+visible = false
+layout_mode = 2
+
+[node name="SizeLineEdit" type="LineEdit" parent="HBoxContainer2" unique_id=840297931]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(148, 32)
+layout_mode = 2
+placeholder_text = "12"
+
+[node name="Label" type="Label" parent="HBoxContainer2" unique_id=874824971]
+layout_mode = 2
+text = "Font Size"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="." unique_id=747266594]
+layout_mode = 2
+
+[node name="ScaleWidthLineEdit" type="LineEdit" parent="HBoxContainer3" unique_id=350991263]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(72, 32)
+layout_mode = 2
+placeholder_text = "1"
+
+[node name="ScaleHeightLineEdit" type="LineEdit" parent="HBoxContainer3" unique_id=95907516]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(72, 32)
+layout_mode = 2
+placeholder_text = "1"
+
+[node name="Label" type="Label" parent="HBoxContainer3" unique_id=1673300471]
+layout_mode = 2
+text = "Scale"

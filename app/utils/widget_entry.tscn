@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://bvr75qffh5r2f"]
+
+[ext_resource type="Script" uid="uid://chbpwixywjhtp" path="res://app/utils/widget_entry.gd" id="1_i7ded"]
+[ext_resource type="Script" uid="uid://codlxtqskqkwa" path="res://addons/widgetry_runtime/runtime/wr_layout_renderer.gd" id="2_omu02"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_panel"]
+
+[node name="WidgetEntry" type="Control" unique_id=278418172]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_i7ded")
+
+[node name="Panel" type="Panel" parent="." unique_id=2093996845]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_panel")
+script = ExtResource("2_omu02")

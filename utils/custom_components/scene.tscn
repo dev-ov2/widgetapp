@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://bl0nr73owdwnk"]
+
+[node name="Scene" type="SubViewportContainer" unique_id=492783374]
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="." unique_id=512343915]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(2, 2)
+render_target_update_mode = 4

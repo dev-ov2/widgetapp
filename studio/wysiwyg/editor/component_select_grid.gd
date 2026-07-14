@@ -1,10 +1,10 @@
 @tool
 extends GridContainer
 
-var usable_nodes: PackedStringArray = ["Button", "Label", "Panel", "TextureRect", "VideoStreamPlayer"]
+var usable_nodes: PackedStringArray = ["Button", "Label", "Panel", "TextureRect" ] # "VideoStreamPlayer"
 var custom_components: PackedStringArray = ["Scene"]
 
-var component_grid_item_scene: PackedScene = preload("res://studio/wysiwyg/component_grid_item.tscn")
+var component_grid_item_scene: PackedScene = preload("res://studio/wysiwyg/editor/component_grid_item.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

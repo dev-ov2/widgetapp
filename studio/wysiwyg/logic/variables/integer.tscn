@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://dylqlmwociivx"]
+
+[node name="Integer" type="VBoxContainer" unique_id=517886676]
+offset_right = 198.0
+offset_bottom = 104.0
+
+[node name="DefaultValueContainer" type="HBoxContainer" parent="." unique_id=249337233]
+layout_mode = 2
+
+[node name="DefaultValueLineEdit" type="LineEdit" parent="DefaultValueContainer" unique_id=661667014]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 32)
+layout_mode = 2
+placeholder_text = "0"
+
+[node name="Label" type="Label" parent="DefaultValueContainer" unique_id=449750589]
+layout_mode = 2
+text = "Default Value"
+
+[node name="MinValueContainer" type="HBoxContainer" parent="." unique_id=1637637324]
+layout_mode = 2
+
+[node name="MinValueLineEdit" type="LineEdit" parent="MinValueContainer" unique_id=1672175437]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 32)
+layout_mode = 2
+placeholder_text = "0"
+
+[node name="Label" type="Label" parent="MinValueContainer" unique_id=1311592367]
+layout_mode = 2
+text = "Minimum Value"
+
+[node name="MaxValueContainer" type="HBoxContainer" parent="." unique_id=882753439]
+layout_mode = 2
+
+[node name="MaxValueLineEdit" type="LineEdit" parent="MaxValueContainer" unique_id=410688934]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 32)
+layout_mode = 2
+placeholder_text = "999999999"
+
+[node name="Label" type="Label" parent="MaxValueContainer" unique_id=1811529368]
+layout_mode = 2
+text = "Maximum Value"

@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://b3wxu5tqn6vec"]
+
+[ext_resource type="Script" uid="uid://c35fykmt1v1yc" path="res://app/main.gd" id="1_yblnd"]
+[ext_resource type="Texture2D" uid="uid://d4cxhvgntyj4v" path="res://widget.png" id="2_s58fy"]
+[ext_resource type="PackedScene" uid="uid://dl6x01g27y0am" path="res://app/landing/landing_page.tscn" id="3_landing"]
+
+[node name="Main" type="Control" unique_id=184055708]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yblnd")
+
+[node name="LandingPage" parent="." unique_id=786230732 instance=ExtResource("3_landing")]
+unique_name_in_owner = true
+layout_mode = 1
+
+[node name="StatusIndicator" type="StatusIndicator" parent="." unique_id=622833830]
+tooltip = "Widget app"
+icon = ExtResource("2_s58fy")
+menu = NodePath("../PopupMenu")
+
+[node name="PopupMenu" type="PopupMenu" parent="." unique_id=1790200591]
+oversampling_override = 1.0
+size = Vector2i(176, 116)
+item_count = 7
+item_0/text = "Choose Widgets..."
+item_0/id = 0
+item_1/text = "Open Marketplace"
+item_1/id = 1
+item_2/id = 998
+item_2/separator = true
+item_3/text = "Open Studio"
+item_3/id = 2
+item_4/id = 999
+item_4/separator = true
+item_5/text = "Show Home"
+item_5/id = 3
+item_6/text = "Quit"
+item_6/id = 4
+
+[connection signal="id_pressed" from="PopupMenu" to="." method="_on_popup_menu_id_pressed"]

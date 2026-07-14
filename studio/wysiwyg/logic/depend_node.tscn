@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://kc82g8mnh6gu"]
+
+[ext_resource type="Script" uid="uid://bc2tucl1xdyo8" path="res://studio/wysiwyg/logic/scripts/logic_drag_node.gd" id="1_5dvdn"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nige2"]
+bg_color = Color(0.9913669, 0.79201597, 1.1551381e-06, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7ywx5"]
+bg_color = Color(0.19678319, 0.1486943, 2.4065375e-08, 1)
+
+[node name="DependNode" type="GraphNode" unique_id=1411587434]
+theme_override_styles/panel = SubResource("StyleBoxFlat_nige2")
+theme_override_styles/titlebar = SubResource("StyleBoxFlat_7ywx5")
+title = "Depends On"
+ignore_invalid_connection_type = true
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color(0, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 0, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+script = ExtResource("1_5dvdn")
+theme_override_styles/panel = SubResource("StyleBoxFlat_nige2")
+theme_override_styles/titlebar = SubResource("StyleBoxFlat_7ywx5")
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color(0, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 0, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+type = 1
+
+[node name="OptionButton" type="OptionButton" parent="." unique_id=1716012936]
+layout_mode = 2

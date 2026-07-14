@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://d78sl5g3kag5"]
+
+[node name="Label" type="VBoxContainer" unique_id=2135805760]
+custom_minimum_size = Vector2(240, 0)
+offset_right = 240.0
+offset_bottom = 68.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1561583754]
+layout_mode = 2
+
+[node name="LabelLineEdit" type="LineEdit" parent="HBoxContainer" unique_id=1850040810]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(148, 32)
+layout_mode = 2
+placeholder_text = "Label"
+
+[node name="Label" type="Label" parent="HBoxContainer" unique_id=2046498938]
+layout_mode = 2
+text = "Label"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="." unique_id=1320887353]
+layout_mode = 2
+
+[node name="SizeLineEdit" type="LineEdit" parent="HBoxContainer2" unique_id=1307669027]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(148, 32)
+layout_mode = 2
+placeholder_text = "12"
+
+[node name="Label" type="Label" parent="HBoxContainer2" unique_id=874824971]
+layout_mode = 2
+text = "Font Size"

@@ -1,0 +1,103 @@
+[gd_scene format=3 uid="uid://d003h84nj12qh"]
+
+[ext_resource type="Script" uid="uid://ckp1n604xgbsk" path="res://studio/wysiwyg/inspector/inspector.gd" id="1_r7ayy"]
+[ext_resource type="Theme" uid="uid://b6d33jjssn8f2" path="res://studio/studio_theme.tres" id="1_rmcg2"]
+
+[node name="InspectorLayout" type="Control" unique_id=1004103137]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_r7ayy")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=487290521]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer" unique_id=422770262]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/VBoxContainer" unique_id=1753126966]
+layout_mode = 2
+text = "General"
+
+[node name="Label2" type="Label" parent="VBoxContainer/VBoxContainer" unique_id=736817119]
+layout_mode = 2
+theme = ExtResource("1_rmcg2")
+theme_type_variation = &"Subtitle"
+text = "Shared properties across nodes"
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer" unique_id=1502982807]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer" unique_id=1417745862]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/MarginContainer/VBoxContainer" unique_id=1725924387]
+layout_mode = 2
+
+[node name="NameLineEdit" type="LineEdit" parent="VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=430816285]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(148, 32)
+layout_mode = 2
+placeholder_text = "Label"
+
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1382186644]
+layout_mode = 2
+text = "Name"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer/VBoxContainer" unique_id=687000691]
+layout_mode = 2
+
+[node name="SizeWidthLineEdit" type="LineEdit" parent="VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=454610778]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(72, 32)
+layout_mode = 2
+placeholder_text = "32"
+
+[node name="SizeHeightLineEdit" type="LineEdit" parent="VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=980938638]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(72, 32)
+layout_mode = 2
+placeholder_text = "32"
+
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=730338572]
+layout_mode = 2
+text = "Size (px)"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer/MarginContainer/VBoxContainer" unique_id=1235029956]
+layout_mode = 2
+
+[node name="PositionXLineEdit" type="LineEdit" parent="VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer3" unique_id=131033202]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(72, 32)
+layout_mode = 2
+placeholder_text = "32"
+
+[node name="PositionYLineEdit" type="LineEdit" parent="VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer3" unique_id=1879020282]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(72, 32)
+layout_mode = 2
+placeholder_text = "32"
+
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer3" unique_id=503154661]
+layout_mode = 2
+text = "Position"
+
+[node name="EditLogicButton" type="Button" parent="VBoxContainer" unique_id=221415410]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Edit Logic..."
+
+[node name="TypeContainer" type="MarginContainer" parent="VBoxContainer" unique_id=965444318]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_right = 8

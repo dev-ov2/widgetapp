@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://dm3g3pt1bgwbs"]
 
+[ext_resource type="Script" uid="uid://cp3lveol5vjdo" path="res://studio/steps/step_3.gd" id="1_sp1ys"]
+
 [node name="Step3" type="Control" unique_id=1108668865]
 layout_mode = 3
 anchors_preset = 15
@@ -7,6 +9,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_sp1ys")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=2032009105]
 layout_mode = 1
@@ -37,10 +40,13 @@ layout_mode = 2
 layout_mode = 2
 text = "Widget ID"
 
-[node name="TextEdit" type="TextEdit" parent="VBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/WidgetIDContainer" unique_id=63458530]
+[node name="IDLineEdit" type="LineEdit" parent="VBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/WidgetIDContainer" unique_id=820611379]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(256, 0)
 layout_mode = 2
-placeholder_text = "amusing_musings_06282026"
+focus_mode = 0
+editable = false
+placeholder_text = "Assigned when the draft is created"
 
 [node name="WidgetNameContainer" type="HBoxContainer" parent="VBoxContainer/VBoxContainer/MarginContainer/VBoxContainer" unique_id=393412235]
 custom_minimum_size = Vector2(0, 32)
@@ -50,7 +56,8 @@ layout_mode = 2
 layout_mode = 2
 text = "Name"
 
-[node name="TextEdit" type="TextEdit" parent="VBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/WidgetNameContainer" unique_id=389387873]
+[node name="NameLineEdit" type="LineEdit" parent="VBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/WidgetNameContainer" unique_id=744538258]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(192, 0)
 layout_mode = 2
 placeholder_text = "Amusing Musings"
@@ -63,7 +70,8 @@ layout_mode = 2
 layout_mode = 2
 text = "Description"
 
-[node name="TextEdit" type="TextEdit" parent="VBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/WidgetDescriptionContainer" unique_id=242376184]
+[node name="DescriptionTextEdit" type="TextEdit" parent="VBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/WidgetDescriptionContainer" unique_id=242376184]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(512, 64)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -77,7 +85,8 @@ layout_mode = 2
 layout_mode = 2
 text = "Tags (Comma Separated)"
 
-[node name="TextEdit" type="TextEdit" parent="VBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/WidgetTagsContainer" unique_id=961674538]
+[node name="TagsLineEdit" type="LineEdit" parent="VBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/WidgetTagsContainer" unique_id=1924874308]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(192, 0)
 layout_mode = 2
 placeholder_text = "clicker,fun,shop"
@@ -90,7 +99,8 @@ layout_mode = 2
 layout_mode = 2
 text = "Author"
 
-[node name="TextEdit" type="TextEdit" parent="VBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/WidgetAuthorContainer" unique_id=525483853]
+[node name="AuthorLineEdit" type="LineEdit" parent="VBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/WidgetAuthorContainer" unique_id=1690280461]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(192, 0)
 layout_mode = 2
 placeholder_text = "snode4"
@@ -103,7 +113,8 @@ layout_mode = 2
 layout_mode = 2
 text = "Version"
 
-[node name="TextEdit" type="TextEdit" parent="VBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/WidgetVersionContainer" unique_id=1999226887]
+[node name="VersionLineEdit" type="LineEdit" parent="VBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/WidgetVersionContainer" unique_id=794330867]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(192, 0)
 layout_mode = 2
 placeholder_text = "1.8"
@@ -116,7 +127,8 @@ layout_mode = 2
 layout_mode = 2
 text = "Icon (relative to pack)"
 
-[node name="TextEdit" type="TextEdit" parent="VBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/WidgetIconContainer" unique_id=1569023495]
+[node name="IconLineEdit" type="LineEdit" parent="VBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/WidgetIconContainer" unique_id=36435634]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(192, 0)
 layout_mode = 2
 placeholder_text = "./icons/icon.png"

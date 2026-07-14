@@ -1,0 +1,143 @@
+[gd_scene format=3 uid="uid://winwbvdfyog3"]
+
+[ext_resource type="Theme" uid="uid://b6d33jjssn8f2" path="res://studio/studio_theme.tres" id="1_n8li6"]
+[ext_resource type="Script" uid="uid://bs7pjtb2omu8x" path="res://studio/wizard.gd" id="1_tt018"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_onx6v"]
+color = Color(1, 1, 1, 0.26666668)
+vertical = true
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_3g1i2"]
+color = Color(1, 1, 1, 0.26666668)
+
+[node name="Header" type="Control" unique_id=1401202795]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_tt018")
+
+[node name="Panel" type="Panel" parent="." unique_id=1298778132]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_n8li6")
+theme_type_variation = &"Background"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1163168786]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AppBarContainer" type="MarginContainer" parent="VBoxContainer" unique_id=991391508]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/AppBarContainer" unique_id=70036088]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/AppBarContainer/VBoxContainer" unique_id=733331531]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/AppBarContainer/VBoxContainer/HBoxContainer" unique_id=756547260]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Title" type="Label" parent="VBoxContainer/AppBarContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=578629321]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("1_n8li6")
+text = "Header"
+
+[node name="Subtitle" type="Label" parent="VBoxContainer/AppBarContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1134084634]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+theme = ExtResource("1_n8li6")
+theme_type_variation = &"Subtitle"
+text = "Lorem ipsum dolor sit amet consectetur adipiscing elit quisque faucibus ex sapien vitae pellentesque sem placerat in id."
+autowrap_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/AppBarContainer/VBoxContainer/HBoxContainer" unique_id=436390019]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 8
+theme_override_constants/separation = 20
+
+[node name="UndoButton" type="Button" parent="VBoxContainer/AppBarContainer/VBoxContainer/HBoxContainer/HBoxContainer" unique_id=1048643532]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("1_n8li6")
+text = "Undo"
+
+[node name="RedoButton" type="Button" parent="VBoxContainer/AppBarContainer/VBoxContainer/HBoxContainer/HBoxContainer" unique_id=1231136718]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("1_n8li6")
+text = "Redo"
+
+[node name="Panel" type="Panel" parent="VBoxContainer/AppBarContainer/VBoxContainer/HBoxContainer/HBoxContainer" unique_id=913962512]
+custom_minimum_size = Vector2(1, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxLine_onx6v")
+
+[node name="SaveButton" type="Button" parent="VBoxContainer/AppBarContainer/VBoxContainer/HBoxContainer/HBoxContainer" unique_id=1809558996]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("1_n8li6")
+text = "Save"
+
+[node name="Panel" type="Panel" parent="VBoxContainer/AppBarContainer/VBoxContainer" unique_id=1151391183]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxLine_3g1i2")
+
+[node name="Content" type="Control" parent="VBoxContainer" unique_id=1540036926]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer" unique_id=1803837286]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer" unique_id=918349579]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="VBoxContainer/MarginContainer/VBoxContainer" unique_id=660102581]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxLine_3g1i2")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer/VBoxContainer" unique_id=171752124]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 2
+
+[node name="BackButton" type="Button" parent="VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=394813491]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("1_n8li6")
+text = "Back"
+
+[node name="NextButton" type="Button" parent="VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1556534895]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("1_n8li6")
+text = "Continue to Step 2"
+
+[connection signal="pressed" from="VBoxContainer/AppBarContainer/VBoxContainer/HBoxContainer/HBoxContainer/SaveButton" to="." method="_on_save_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/NextButton" to="." method="_on_next_button_pressed"]

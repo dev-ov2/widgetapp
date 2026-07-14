@@ -1,0 +1,404 @@
+[gd_scene format=3 uid="uid://chyvwyfspwshn"]
+
+[ext_resource type="Script" uid="uid://dqynnmrkjey78" path="res://studio/wysiwyg/component_select_grid.gd" id="1_4s21g"]
+[ext_resource type="Script" uid="uid://dnhmjtbja3g1t" path="res://studio/wysiwyg/wysiwyg_editor.gd" id="1_mgare"]
+[ext_resource type="Script" uid="uid://b3p40ih4b8xnc" path="res://studio/wysiwyg/widget_graph_node.gd" id="2_4s21g"]
+[ext_resource type="Theme" uid="uid://b6d33jjssn8f2" path="res://studio/studio_theme.tres" id="2_dkyl2"]
+[ext_resource type="Script" uid="uid://ngya7qi28rpm" path="res://studio/wysiwyg/draggable_panel.gd" id="4_ag1yy"]
+[ext_resource type="Script" uid="uid://nmd86laf8p72" path="res://studio/wysiwyg/resources/graph_node_template_child.gd" id="6_on5ed"]
+[ext_resource type="PackedScene" uid="uid://d003h84nj12qh" path="res://studio/wysiwyg/inspector/inspector_layout.tscn" id="6_uoup0"]
+[ext_resource type="Texture2D" uid="uid://br4t26p6pgfbv" path="res://icon.svg" id="7_xqkmw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4s21g"]
+bg_color = Color(0, 0.9143153, 0.9469659, 0.08235294)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0.914, 0.945, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4s21g"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dkyl2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mgare"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dkyl2"]
+bg_color = Color(0.72156864, 0.8, 1, 0.08235294)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.7227526, 0.80112547, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qtny4"]
+bg_color = Color(1, 0.67058825, 0.9764706, 0.08235294)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 0.67058825, 0.9764706, 1)
+
+[node name="Control" type="Control" unique_id=325623824]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mgare")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=951573863]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer" unique_id=1765967450]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+
+[node name="ComponentPanel" type="VBoxContainer" parent="HBoxContainer/VBoxContainer" unique_id=58748354]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ComponentPanelTitle" type="Label" parent="HBoxContainer/VBoxContainer/ComponentPanel" unique_id=1163590103]
+layout_mode = 2
+text = "Add Component"
+
+[node name="ComponentPanelSubtitle" type="Label" parent="HBoxContainer/VBoxContainer/ComponentPanel" unique_id=1262945452]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.53333336)
+theme_override_font_sizes/font_size = 12
+text = "Drag and drop a component into the grid to add it to your widget"
+autowrap_mode = 1
+
+[node name="GridContainer" type="GridContainer" parent="HBoxContainer/VBoxContainer/ComponentPanel" unique_id=1075316088]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+columns = 3
+script = ExtResource("1_4s21g")
+
+[node name="FeaturePanel" type="VBoxContainer" parent="HBoxContainer/VBoxContainer" unique_id=987511874]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+
+[node name="ComponentPanelTitle" type="Label" parent="HBoxContainer/VBoxContainer/FeaturePanel" unique_id=1248762614]
+layout_mode = 2
+text = "Toggle Features"
+
+[node name="ComponentPanelSubtitle" type="Label" parent="HBoxContainer/VBoxContainer/FeaturePanel" unique_id=1483574955]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.53333336)
+theme_override_font_sizes/font_size = 12
+text = "Choose what features this widget will have when active."
+autowrap_mode = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/FeaturePanel" unique_id=47131814]
+layout_mode = 2
+
+[node name="StoreContainer" type="MarginContainer" parent="HBoxContainer/VBoxContainer/FeaturePanel/VBoxContainer" unique_id=1384657637]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/FeaturePanel/VBoxContainer/StoreContainer" unique_id=544092257]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/FeaturePanel/VBoxContainer/StoreContainer/VBoxContainer" unique_id=426281861]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/FeaturePanel/VBoxContainer/StoreContainer/VBoxContainer/HBoxContainer" unique_id=40810094]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="StoreTitle" type="Label" parent="HBoxContainer/VBoxContainer/FeaturePanel/VBoxContainer/StoreContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=727157340]
+layout_mode = 2
+text = "Store Functionality"
+
+[node name="StoreSubtitle" type="Label" parent="HBoxContainer/VBoxContainer/FeaturePanel/VBoxContainer/StoreContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=474733817]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme = ExtResource("2_dkyl2")
+theme_type_variation = &"Subtitle"
+text = "Enables a secondary invocable window that allows the user to purchase items to customize their widget."
+autowrap_mode = 2
+
+[node name="StoreLogicCheckButton" type="CheckButton" parent="HBoxContainer/VBoxContainer/FeaturePanel/VBoxContainer/StoreContainer/VBoxContainer/HBoxContainer" unique_id=180749511]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Button" type="Button" parent="HBoxContainer/VBoxContainer/FeaturePanel/VBoxContainer/StoreContainer/VBoxContainer" unique_id=2131568757]
+layout_mode = 2
+text = "Edit Shop.json"
+
+[node name="PetLogicContainer" type="MarginContainer" parent="HBoxContainer/VBoxContainer/FeaturePanel/VBoxContainer" unique_id=1482751895]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/FeaturePanel/VBoxContainer/PetLogicContainer" unique_id=1639596536]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/FeaturePanel/VBoxContainer/PetLogicContainer/HBoxContainer" unique_id=1216206780]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PetLogicTitle" type="Label" parent="HBoxContainer/VBoxContainer/FeaturePanel/VBoxContainer/PetLogicContainer/HBoxContainer/VBoxContainer" unique_id=2096192985]
+layout_mode = 2
+text = "Pet Logic"
+
+[node name="PetLogicSubtitle" type="Label" parent="HBoxContainer/VBoxContainer/FeaturePanel/VBoxContainer/PetLogicContainer/HBoxContainer/VBoxContainer" unique_id=273444966]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme = ExtResource("2_dkyl2")
+theme_type_variation = &"Subtitle"
+text = "Enables the widget to move around autonomously on the desktop."
+autowrap_mode = 2
+
+[node name="PetLogicCheckButton" type="CheckButton" parent="HBoxContainer/VBoxContainer/FeaturePanel/VBoxContainer/PetLogicContainer/HBoxContainer" unique_id=1071128342]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="CheckButton3" type="CheckButton" parent="HBoxContainer/VBoxContainer/FeaturePanel/VBoxContainer" unique_id=500451212]
+visible = false
+layout_mode = 2
+
+[node name="CheckButton4" type="CheckButton" parent="HBoxContainer/VBoxContainer/FeaturePanel/VBoxContainer" unique_id=1201952706]
+visible = false
+layout_mode = 2
+
+[node name="GraphEdit" type="GraphEdit" parent="HBoxContainer" unique_id=682321466]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+snapping_distance = 8
+
+[node name="WidgetGraphNode" type="GraphNode" parent="HBoxContainer/GraphEdit" unique_id=588413395]
+layout_mode = 0
+offset_right = 400.0
+offset_bottom = 200.0
+mouse_filter = 1
+theme_override_colors/resizer_color = Color(0, 0.9137255, 0.94509804, 1)
+theme_override_styles/panel = SubResource("StyleBoxFlat_4s21g")
+theme_override_styles/titlebar = SubResource("StyleBoxEmpty_4s21g")
+theme_override_styles/titlebar_selected = SubResource("StyleBoxEmpty_dkyl2")
+resizable = true
+title = "desktop widget"
+slot/0/left_enabled = false
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = false
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+
+[node name="WidgetPanel" type="Panel" parent="HBoxContainer/GraphEdit/WidgetGraphNode" unique_id=300627510]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxEmpty_mgare")
+script = ExtResource("4_ag1yy")
+
+[node name="WidgetStoreNode" type="GraphNode" parent="HBoxContainer/GraphEdit" unique_id=55066025]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(400, 800)
+layout_mode = 0
+offset_top = 240.0
+offset_right = 400.0
+offset_bottom = 1040.0
+mouse_filter = 1
+theme_override_colors/resizer_color = Color(0.72156864, 0.8, 1, 1)
+theme_override_styles/panel = SubResource("StyleBoxFlat_dkyl2")
+theme_override_styles/titlebar = SubResource("StyleBoxEmpty_4s21g")
+theme_override_styles/titlebar_selected = SubResource("StyleBoxEmpty_dkyl2")
+position_offset = Vector2(0, 240)
+resizable = true
+title = "store window"
+slot/0/left_enabled = false
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = false
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+script = ExtResource("2_4s21g")
+
+[node name="StorePanel" type="Panel" parent="HBoxContainer/GraphEdit/WidgetStoreNode" unique_id=742421441]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxEmpty_mgare")
+script = ExtResource("4_ag1yy")
+
+[node name="ShopTitle" type="Label" parent="HBoxContainer/GraphEdit/WidgetStoreNode/StorePanel" unique_id=1304574097]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 50.0
+offset_bottom = 31.0
+text = "Store"
+script = ExtResource("6_on5ed")
+node_type = "Label"
+parent_type = "shop"
+
+[node name="ShopFundsLabel" type="Label" parent="HBoxContainer/GraphEdit/WidgetStoreNode/StorePanel" unique_id=46770983]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 33.0
+offset_right = 51.0
+offset_bottom = 56.0
+theme_override_font_sizes/font_size = 12
+text = "${points}"
+script = ExtResource("6_on5ed")
+node_type = "Label"
+parent_type = "shop"
+
+[node name="ShopList" type="Control" parent="HBoxContainer/GraphEdit/WidgetStoreNode/StorePanel" unique_id=105167172]
+anchors_preset = 0
+offset_left = 7.0
+offset_top = 56.0
+offset_right = 391.0
+offset_bottom = 767.0
+script = ExtResource("6_on5ed")
+node_type = "Control"
+parent_type = "shop"
+
+[node name="HScrollBar" type="ScrollContainer" parent="HBoxContainer/GraphEdit/WidgetStoreNode/StorePanel/ShopList" unique_id=1599094651]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/GraphEdit/WidgetStoreNode/StorePanel/ShopList/HScrollBar" unique_id=1076729357]
+layout_mode = 2
+
+[node name="WidgetStoreListItemNode" type="GraphNode" parent="HBoxContainer/GraphEdit" unique_id=1270895899]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(360, 64)
+layout_mode = 0
+offset_left = 480.0
+offset_top = 240.0
+offset_right = 880.0
+offset_bottom = 340.0
+mouse_filter = 1
+theme_override_colors/resizer_color = Color(1, 0.67058825, 0.9764706, 1)
+theme_override_styles/panel = SubResource("StyleBoxFlat_qtny4")
+theme_override_styles/titlebar = SubResource("StyleBoxEmpty_4s21g")
+theme_override_styles/titlebar_selected = SubResource("StyleBoxEmpty_dkyl2")
+position_offset = Vector2(480, 240)
+resizable = true
+title = "store list item"
+slot/0/left_enabled = false
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = false
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+script = ExtResource("2_4s21g")
+type = "shop"
+
+[node name="StoreListItemPanel" type="Panel" parent="HBoxContainer/GraphEdit/WidgetStoreListItemNode" unique_id=729011737]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxEmpty_mgare")
+script = ExtResource("4_ag1yy")
+
+[node name="ListItemTextureRect" type="TextureRect" parent="HBoxContainer/GraphEdit/WidgetStoreListItemNode/StoreListItemPanel" unique_id=780977444]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 16.0
+offset_right = 55.0
+offset_bottom = 56.0
+texture = ExtResource("7_xqkmw")
+expand_mode = 2
+script = ExtResource("6_on5ed")
+node_type = "TextureRect"
+parent_type = "shop_list_item"
+
+[node name="ListItemLabel" type="Label" parent="HBoxContainer/GraphEdit/WidgetStoreListItemNode/StoreListItemPanel" unique_id=2037854860]
+layout_mode = 0
+offset_left = 79.0
+offset_top = 8.0
+offset_right = 121.0
+offset_bottom = 31.0
+text = "Item"
+script = ExtResource("6_on5ed")
+node_type = "Label"
+parent_type = "shop_list_item"
+
+[node name="ListItemCost" type="Label" parent="HBoxContainer/GraphEdit/WidgetStoreListItemNode/StoreListItemPanel" unique_id=1924970093]
+layout_mode = 0
+offset_left = 79.0
+offset_top = 32.0
+offset_right = 132.0
+offset_bottom = 55.0
+theme_override_font_sizes/font_size = 12
+text = "$100"
+script = ExtResource("6_on5ed")
+node_type = "Label"
+parent_type = "shop_list_item"
+
+[node name="ListItemPurchaseButton" type="Button" parent="HBoxContainer/GraphEdit/WidgetStoreListItemNode/StoreListItemPanel" unique_id=295212162]
+layout_mode = 0
+offset_left = 311.0
+offset_top = 40.0
+offset_right = 391.0
+offset_bottom = 71.0
+text = "Purchase"
+script = ExtResource("6_on5ed")
+parent_type = "shop_list_item"
+
+[node name="InspectorPanel" type="VBoxContainer" parent="HBoxContainer" unique_id=1743100655]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+
+[node name="Title" type="Label" parent="HBoxContainer/InspectorPanel" unique_id=1920023985]
+layout_mode = 2
+text = "Inspector"
+horizontal_alignment = 1
+
+[node name="ActiveNodeType" type="Label" parent="HBoxContainer/InspectorPanel" unique_id=839960152]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+theme = ExtResource("2_dkyl2")
+theme_type_variation = &"Subtitle"
+text = "Select a node to inspect/change its properties"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="InspectorLayout" parent="HBoxContainer/InspectorPanel" unique_id=1004103137 instance=ExtResource("6_uoup0")]
+unique_name_in_owner = true
+clip_contents = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="." unique_id=1310326628]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[connection signal="toggled" from="HBoxContainer/VBoxContainer/FeaturePanel/VBoxContainer/StoreContainer/VBoxContainer/HBoxContainer/StoreLogicCheckButton" to="." method="_on_store_logic_check_button_toggled"]
+[connection signal="toggled" from="HBoxContainer/VBoxContainer/FeaturePanel/VBoxContainer/PetLogicContainer/HBoxContainer/PetLogicCheckButton" to="." method="_on_pet_logic_check_button_toggled"]
+[connection signal="on_node_received" from="HBoxContainer/GraphEdit/WidgetGraphNode/WidgetPanel" to="." method="_on_panel_on_node_event_received"]
+[connection signal="on_node_received" from="HBoxContainer/GraphEdit/WidgetStoreNode/StorePanel" to="." method="_on_panel_on_node_event_received"]

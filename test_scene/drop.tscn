@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://vjyd5aqgkueo"]
+
+[ext_resource type="Texture2D" uid="uid://byfnhg66sv6j0" path="res://widgets/amusement_park/rides/drop/drop_stand.png" id="1_igbd7"]
+[ext_resource type="Texture2D" uid="uid://dufl78xd6xkgq" path="res://widgets/amusement_park/rides/drop/drop_coaster.png" id="2_h7l3q"]
+[ext_resource type="Script" uid="uid://bhwcxuvvhoevb" path="res://widgets/amusement_park/rides/drop/drop_coaster.gd" id="3_fhdqb"]
+
+[node name="Drop" type="Node2D" unique_id=491209157]
+
+[node name="DropStand" type="Sprite2D" parent="." unique_id=1932645131]
+texture = ExtResource("1_igbd7")
+centered = false
+
+[node name="DropCoaster" type="Sprite2D" parent="." unique_id=605134899]
+position = Vector2(128, 243)
+texture = ExtResource("2_h7l3q")
+script = ExtResource("3_fhdqb")

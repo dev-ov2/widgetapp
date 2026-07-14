@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://ccwa0v48yyn1"]
+
+[node name="Panel" type="VBoxContainer" unique_id=1734611544]
+custom_minimum_size = Vector2(240, 0)
+offset_right = 240.0
+offset_bottom = 23.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=70004676]
+layout_mode = 2
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="HBoxContainer" unique_id=379057099]
+custom_minimum_size = Vector2(146, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer" unique_id=855385437]
+layout_mode = 2
+text = "Color"
