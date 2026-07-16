@@ -16,7 +16,10 @@ static func parse_dict(metadata: Dictionary) -> Dictionary:
 		if metadata[key] is Dictionary and metadata[key].has("type") and metadata[key]["type"] == "tuple" and metadata[key].has("value"):
 			var value = metadata[key]["value"]
 			if value is Array and value.size() == 2:
-				metadata.set(key, Vector2(value[0], value[1]))
+				var x := float(value[0])
+				var y := float(value[1])
+				if is_finite(x) and is_finite(y):
+					metadata.set(key, Vector2(x, y))
 		elif metadata[key] is Dictionary:
 			metadata[key] = parse_dict(metadata[key])
 	
@@ -61,8 +64,12 @@ static func get_active_widgets() -> Array[ActiveWidgetMetadata]:
 		if file != null:
 			var json = file.get_as_text()
 			var arr = JSON.parse_string(json)
-			for widget_metadata in arr:
-				active_widgets.append(ActiveWidgetMetadata.new(widget_metadata))
+			if arr == null:
+				push_warning("IO: failed to parse widgets.json — using empty active set")
+				return active_widgets
+			if arr is Array:
+				for widget_metadata in arr:
+					active_widgets.append(ActiveWidgetMetadata.new(widget_metadata))
 	return active_widgets
 
 static func set_active_widgets(active_widgets: Array[ActiveWidgetMetadata]) -> void:

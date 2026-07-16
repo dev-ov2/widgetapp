@@ -1,10 +1,16 @@
 [gd_scene format=3 uid="uid://bl0nr73owdwnk"]
 
 [node name="Scene" type="SubViewportContainer" unique_id=492783374]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="." unique_id=512343915]
 transparent_bg = true
 handle_input_locally = false
-size = Vector2i(2, 2)
+size = Vector2i(1152, 648)
+size_2d_override_stretch = true
 render_target_update_mode = 4

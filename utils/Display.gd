@@ -49,8 +49,8 @@ static func show_widget(parent: Node, scene: Node, size: Vector2, position: Vect
 
 	ui_window.add_child(scene)
 	ui_window.show()
-	if position == Vector2.INF:
+	if position == Vector2.INF or not position.is_finite():
 		center(ui_window)
 	else:
-		ui_window.position = position
+		ui_window.position = Vector2i(position)
 	return ui_window

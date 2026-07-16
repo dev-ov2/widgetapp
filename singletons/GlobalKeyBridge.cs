@@ -3,18 +3,19 @@ using SharpHook;
 using SharpHook.Providers;
 using SharpHook.Native;
 using SharpHook.Logging;
-using SharpHook.Data; // <-- Added this!
+using SharpHook.Data;
 
 public partial class GlobalKeyBridge : Node
 {
 	[Signal]
-	public delegate void GlobalKeyPressedEventHandler(int keyCode);
+	//public delegate void GlobalKeyPressedEventHandler(int keyCode);
+	public delegate void GlobalKeyPressedEventHandler();
 
-	[Signal]
-	public delegate void GlobalKeyReleasedEventHandler(int keyCode);
+	//[Signal]
+	//public delegate void GlobalKeyReleasedEventHandler(int keyCode);
 
-	[Signal]
-	public delegate void GlobalKeyTypedEventHandler(string text, int keyCode);
+	//[Signal]
+	//public delegate void GlobalKeyTypedEventHandler(string text, int keyCode);
 
 	readonly SimpleGlobalHook _hook = new();
 	LogSource _logSource = LogSource.RegisterOrGet(minLevel: LogLevel.Debug); // LogLevel now works
@@ -61,11 +62,12 @@ public partial class GlobalKeyBridge : Node
 	{
 		if (pressed)
 		{
-			EmitSignal(SignalName.GlobalKeyPressed, keyCode);
+			EmitSignal(SignalName.GlobalKeyPressed);
 		}
 		else
 		{
-			EmitSignal(SignalName.GlobalKeyReleased, keyCode);
+			//enable when i want to again
+			//EmitSignal(SignalName.GlobalKeyReleased, keyCode);
 		}
 		
 		// Casting directly to KeyCode now works because of SharpHook.Data
@@ -74,7 +76,8 @@ public partial class GlobalKeyBridge : Node
 
 	void DispatchTyped(string text, int keyCode)
 	{
-		EmitSignal(SignalName.GlobalKeyTyped, text, keyCode);
+		//enable when i want to again
+		//EmitSignal(SignalName.GlobalKeyTyped, text, keyCode);
 		
 		//GD.Print($"GLOBAL typed: '{text}' from {(KeyCode)keyCode}");
 	}

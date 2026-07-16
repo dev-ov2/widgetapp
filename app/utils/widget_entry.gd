@@ -4,6 +4,8 @@ var widget_data: WidgetData
 var widget_id: String
 
 var draggable: bool
+var _focus_mode: bool = false
+var _buttons_disabled_by_focus: Array[BaseButton] = []
 
 var tracked_nodes: Array[Node]
 
@@ -17,16 +19,91 @@ var shop_window: Window
 const DynamicPassthrough = preload("res://app/utils//DynamicPassthrough.cs")
 const LOGICAL_NODE_SCRIPT = preload("res://app/utils/logic/logical_node.gd")
 const WR_COMPONENT = preload("res://addons/widgetry_runtime/runtime/wr_layout_component.gd")
+const EDIT_BORDER_COLOR = Color(0.0, 0.914, 0.945)
 
 var passthrough_node
+var _edit_border: Panel
 
 func set_widget_data(new_widget_data: WidgetData) -> void:
 	widget_data = new_widget_data
 	_construct_widget()
 
+func apply_display_settings(opacity: float, volume: float) -> void:
+	modulate.a = clampf(opacity, 0.0, 1.0)
+	_apply_volume(self, volume)
+	if shop_window and is_instance_valid(shop_window):
+		_apply_volume(shop_window, volume)
+
+func _apply_volume(root: Node, volume: float) -> void:
+	var linear := clampf(volume, 0.0, 1.0)
+	var volume_db := -80.0 if linear <= 0.0 else linear_to_db(linear)
+	_set_volume_recursive(root, volume_db)
+
+func _set_volume_recursive(node: Node, volume_db: float) -> void:
+	if node is AudioStreamPlayer:
+		(node as AudioStreamPlayer).volume_db = volume_db
+	elif node is AudioStreamPlayer2D:
+		(node as AudioStreamPlayer2D).volume_db = volume_db
+	elif node is AudioStreamPlayer3D:
+		(node as AudioStreamPlayer3D).volume_db = volume_db
+	for child in node.get_children():
+		_set_volume_recursive(child, volume_db)
+
 func handle_passthrough(new_draggable: bool) -> void:
 	draggable = new_draggable
+	if _focus_mode:
+		return
 	passthrough_node.set_accept_all_input(draggable)
+
+func set_edit_border(enabled: bool) -> void:
+	_prepare_edit_border()
+	_edit_border.visible = enabled
+	if enabled:
+		move_child(_edit_border, get_child_count() - 1)
+
+func _prepare_edit_border() -> void:
+	if _edit_border != null and is_instance_valid(_edit_border):
+		return
+	_edit_border = Panel.new()
+	_edit_border.name = "EditBorder"
+	var style := StyleBoxFlat.new()
+	style.bg_color = Color(1, 1, 1, 0)
+	style.set_border_width_all(1)
+	style.border_color = EDIT_BORDER_COLOR
+	_edit_border.add_theme_stylebox_override("panel", style)
+	_edit_border.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_edit_border.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	_edit_border.z_index = 4096
+	_edit_border.visible = false
+	add_child(_edit_border)
+
+func set_widget_focus_mode(enabled: bool) -> void:
+	if enabled == _focus_mode:
+		return
+	_focus_mode = enabled
+	if enabled:
+		_buttons_disabled_by_focus.clear()
+		_disable_interactive_buttons(self)
+		if shop_window:
+			shop_window.hide()
+		if passthrough_node:
+			passthrough_node.set_accept_all_input(false)
+	else:
+		for button in _buttons_disabled_by_focus:
+			if is_instance_valid(button):
+				button.disabled = false
+		_buttons_disabled_by_focus.clear()
+		if passthrough_node:
+			passthrough_node.set_accept_all_input(draggable)
+			
+func _disable_interactive_buttons(node: Node) -> void:
+	if node is BaseButton:
+		var button := node as BaseButton
+		if not button.disabled:
+			button.disabled = true
+			_buttons_disabled_by_focus.append(button)
+	for child in node.get_children():
+		_disable_interactive_buttons(child)
 
 func _ready() -> void:
 	passthrough_node = DynamicPassthrough.new()
@@ -209,7 +286,7 @@ func _get_logic_components(stage: Studio.LogicStage, action: Studio.LogicOption,
 		return c.get_option(stage) == action\
 		 and c.get_metadata(stage).get("source", "") == source)
 
-func _on_global_key_pressed(_key_code: int) -> void:
+func _on_global_key_pressed() -> void:
 	var logic_components = widget_data.get_logic().get_components()\
 	.filter(func(c: LogicComponent):
 		return c.get_option(Studio.LogicStage.ACTION) == Studio.LogicOption.KEY_PRESS

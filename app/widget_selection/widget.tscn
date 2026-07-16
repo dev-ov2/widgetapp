@@ -86,6 +86,124 @@ layout_mode = 2
 script = ExtResource("2_lnsc5")
 chip_scene = ExtResource("3_orir1")
 
+[node name="Settings" type="VBoxContainer" parent="." unique_id=1900100001]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="ScaleRow" type="HBoxContainer" parent="Settings" unique_id=1900100002]
+layout_mode = 2
+
+[node name="ScaleLabel" type="Label" parent="Settings/ScaleRow" unique_id=1900100003]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Scale"
+
+[node name="ScaleSlider" type="HSlider" parent="Settings/ScaleRow" unique_id=1900100004]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 0.25
+max_value = 3.0
+step = 0.05
+value = 1.0
+
+[node name="ScaleValue" type="Label" parent="Settings/ScaleRow" unique_id=1900100005]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(44, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.53333336)
+theme_override_font_sizes/font_size = 12
+text = "100%"
+horizontal_alignment = 2
+
+[node name="SizeRow" type="HBoxContainer" parent="Settings" unique_id=1900100006]
+layout_mode = 2
+
+[node name="SizeLabel" type="Label" parent="Settings/SizeRow" unique_id=1900100007]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Size"
+
+[node name="WidthLineEdit" type="LineEdit" parent="Settings/SizeRow" unique_id=1900100008]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(72, 28)
+layout_mode = 2
+placeholder_text = "W"
+alignment = 1
+
+[node name="SizeX" type="Label" parent="Settings/SizeRow" unique_id=1900100009]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.53333336)
+theme_override_font_sizes/font_size = 12
+text = "×"
+
+[node name="HeightLineEdit" type="LineEdit" parent="Settings/SizeRow" unique_id=1900100010]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(72, 28)
+layout_mode = 2
+placeholder_text = "H"
+alignment = 1
+
+[node name="DedicatedSceneCheck" type="CheckButton" parent="Settings" unique_id=1900100019]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Dedicated scene"
+
+[node name="OpacityRow" type="HBoxContainer" parent="Settings" unique_id=1900100011]
+layout_mode = 2
+
+[node name="OpacityLabel" type="Label" parent="Settings/OpacityRow" unique_id=1900100012]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Opacity"
+
+[node name="OpacitySlider" type="HSlider" parent="Settings/OpacityRow" unique_id=1900100013]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 0.05
+max_value = 1.0
+step = 0.05
+value = 1.0
+
+[node name="OpacityValue" type="Label" parent="Settings/OpacityRow" unique_id=1900100014]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(44, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.53333336)
+theme_override_font_sizes/font_size = 12
+text = "100%"
+horizontal_alignment = 2
+
+[node name="VolumeRow" type="HBoxContainer" parent="Settings" unique_id=1900100015]
+layout_mode = 2
+
+[node name="VolumeLabel" type="Label" parent="Settings/VolumeRow" unique_id=1900100016]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Volume"
+
+[node name="VolumeSlider" type="HSlider" parent="Settings/VolumeRow" unique_id=1900100017]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.05
+value = 1.0
+
+[node name="VolumeValue" type="Label" parent="Settings/VolumeRow" unique_id=1900100018]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(44, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.53333336)
+theme_override_font_sizes/font_size = 12
+text = "100%"
+horizontal_alignment = 2
+
 [node name="HBoxContainer2" type="HBoxContainer" parent="." unique_id=1748343176]
 layout_mode = 2
 alignment = 2
@@ -93,3 +211,4 @@ alignment = 2
 [node name="Enabled" type="CheckButton" parent="HBoxContainer2" unique_id=72819682]
 unique_name_in_owner = true
 layout_mode = 2
+text = "Enabled"

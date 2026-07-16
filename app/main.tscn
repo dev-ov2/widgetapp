@@ -23,9 +23,10 @@ icon = ExtResource("2_s58fy")
 menu = NodePath("../PopupMenu")
 
 [node name="PopupMenu" type="PopupMenu" parent="." unique_id=1790200591]
+unique_name_in_owner = true
 oversampling_override = 1.0
-size = Vector2i(176, 116)
-item_count = 7
+size = Vector2i(176, 148)
+item_count = 8
 item_0/text = "Choose Widgets..."
 item_0/id = 0
 item_1/text = "Open Marketplace"
@@ -36,9 +37,12 @@ item_3/text = "Open Studio"
 item_3/id = 2
 item_4/id = 999
 item_4/separator = true
-item_5/text = "Show Home"
-item_5/id = 3
-item_6/text = "Quit"
-item_6/id = 4
+item_5/text = "Focus Mode"
+item_5/checkable = 1
+item_5/id = 5
+item_6/text = "Show Home"
+item_6/id = 3
+item_7/text = "Quit"
+item_7/id = 4
 
 [connection signal="id_pressed" from="PopupMenu" to="." method="_on_popup_menu_id_pressed"]
