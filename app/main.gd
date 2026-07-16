@@ -76,7 +76,7 @@ func _show_landing() -> void:
 func update_window_drag_status(draggable: bool) -> void:
 	for key in active_widgets.keys():
 		var entry = active_widgets[key].get_child(0)
-		entry.handle_passthrough(draggable)
+		entry.set_draggable(draggable)
 		entry.set_edit_border(draggable)
 
 func bring_widget_selector_to_front() -> void:
@@ -98,10 +98,17 @@ func _set_focus_mode(enabled: bool) -> void:
 		_apply_focus_mode_to_widget(active_widgets[key], enabled)
 
 func _apply_focus_mode_to_widget(window: Window, enabled: bool) -> void:
-	window.visible = !enabled
-	var entry = window.get_child(0)
-	if entry and entry.has_method("set_widget_focus_mode"):
-		entry.set_widget_focus_mode(enabled)
+	# order in which we set up / tear down matters here.
+	if enabled:
+		var entry = window.get_child(0)
+		entry.set_widget_focus_mode(true)
+		entry.hide()
+	else:
+		var entry = window.get_child(0)
+		entry.show()
+		entry.set_widget_focus_mode(false)
+		
+		
 
 func _open_widget_selection() -> void:
 	var user_widget_metadata = IO.get_user_widgets()
@@ -140,7 +147,7 @@ func _on_popup_menu_id_pressed(id: int) -> void:
 		4: # Quit
 			get_tree().quit()
 		5: # Focus Mode
-			_set_focus_mode(not focus_mode_enabled)
+			_set_focus_mode(!focus_mode_enabled)
 
 func _on_window_closed(window: Window, window_type: WindowType, _scene: Node) -> void:
 	match window_type:
@@ -160,7 +167,7 @@ func _display_widget(active_metadata: ActiveWidgetMetadata, widget_metadata: Arr
 	window.set_meta("base_size", widget_size)
 
 	scene.set_widget_data(widget_data)
-	scene.handle_passthrough(widget_selector_active)
+	scene.set_draggable(widget_selector_active)
 	scene.draggable = widget_selector_active
 	
 	scene.set_edit_border(widget_selector_active)

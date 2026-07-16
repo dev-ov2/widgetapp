@@ -49,8 +49,11 @@ func _set_volume_recursive(node: Node, volume_db: float) -> void:
 	for child in node.get_children():
 		_set_volume_recursive(child, volume_db)
 
-func handle_passthrough(new_draggable: bool) -> void:
+func set_draggable(new_draggable: bool) -> void:
 	draggable = new_draggable
+	handle_passthrough()
+
+func handle_passthrough() -> void:
 	if _focus_mode:
 		return
 	passthrough_node.set_accept_all_input(draggable)
@@ -87,15 +90,15 @@ func set_widget_focus_mode(enabled: bool) -> void:
 		if shop_window:
 			shop_window.hide()
 		if passthrough_node:
-			passthrough_node.set_accept_all_input(false)
+			handle_passthrough()
 	else:
 		for button in _buttons_disabled_by_focus:
 			if is_instance_valid(button):
 				button.disabled = false
 		_buttons_disabled_by_focus.clear()
 		if passthrough_node:
-			passthrough_node.set_accept_all_input(draggable)
-			
+			handle_passthrough()
+
 func _disable_interactive_buttons(node: Node) -> void:
 	if node is BaseButton:
 		var button := node as BaseButton
