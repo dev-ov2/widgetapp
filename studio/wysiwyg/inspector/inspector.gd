@@ -196,9 +196,9 @@ func _mount_scene_into_node(target: Node, pack_path: String, scene_path: String,
 	var path = absolute_path.path_join(pack_path).simplify_path()
 	var pack_file = ProjectSettings.globalize_path(path)
 	
-	if !FileAccess.file_exists(path) or !(pack_file.to_lower().ends_with(".pck") or pack_file.to_lower().ends_with(".zip")):
+	if !FileAccess.file_exists(path) or !pack_file.to_lower().ends_with(".zip"):
 		if !pack_path.is_empty():
-			push_warning("Scene: pack not found at '%s'" % path)
+			push_warning("Scene: pack must be a .zip at '%s'" % path)
 		return
 	
 	if !ProjectSettings.load_resource_pack(pack_file, false):

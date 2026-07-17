@@ -38,11 +38,11 @@ custom_minimum_size = Vector2(240, 0)
 layout_mode = 2
 theme = ExtResource("1_2fxon")
 theme_type_variation = &"Subtitle"
-text = "Pack Path is a .pck or .zip relative to *your* mod folder in the Godot user directory (%appdata%/Godot/app_userdata/Widgetry/widgets/<your_widget_id>)
+text = "Pack Path is a .zip relative to *your* mod folder in the Godot user directory (%appdata%/Godot/app_userdata/Widgetry/widgets/<your_widget_id>). .pck packs are not supported.
 
 Scene Path must match the scene's path *inside* the pack, including folders. If the zip contains drop-scene/coaster.tscn, use res://drop-scene/coaster.tscn (not res://coaster.tscn).
 
-To export a pack in Godot 4.6+: Project > Export, select a preset, then click Export PCK/ZIP and drop the file into your mod folder. (A normal Windows zip of loose .tscn files will not work.)
+To export a pack in Godot 4.6+: Project > Export, select a preset, then click Export PCK/ZIP and choose ZIP. Drop the .zip into your mod folder. (A normal Windows zip of loose .tscn files will not work.)
 
 If the scene doesn't seem to show up, please try changing the size of the component!"
 autowrap_mode = 2

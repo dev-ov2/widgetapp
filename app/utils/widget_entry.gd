@@ -290,14 +290,24 @@ func _get_logic_components(stage: Studio.LogicStage, action: Studio.LogicOption,
 		 and c.get_metadata(stage).get("source", "") == source)
 
 func _on_global_key_pressed() -> void:
+	_dispatch_key_pressed(%Panel)
+
 	var logic_components = widget_data.get_logic().get_components()\
 	.filter(func(c: LogicComponent):
 		return c.get_option(Studio.LogicStage.ACTION) == Studio.LogicOption.KEY_PRESS
-		)
+	)
 	var save_data = _get_save_data()
 
 	for component in logic_components:
 		handle_logic_component(component, save_data)
+
+func _dispatch_key_pressed(node: Node) -> void:
+	if node is SubViewport and node.get_child_count() > 0:
+		var main_node: Node = node.get_child(0)
+		if main_node.has_method("on_key_pressed"):
+			main_node.call("on_key_pressed")
+	for child in node.get_children():
+		_dispatch_key_pressed(child)
 
 func _on_visibility_action(_new_visible: bool, node: Control) -> void:
 	var logic_components = _get_logic_components(Studio.LogicStage.ACTION, Studio.LogicOption.VISIBILITY, node.name)
