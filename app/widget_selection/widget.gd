@@ -56,6 +56,7 @@ func set_data(metadata: WidgetMetadata, new_active_widget_metadata: Array[Active
 	%OpacitySlider.value_changed.connect(_on_opacity_changed)
 	%VolumeSlider.value_changed.connect(_on_volume_changed)
 	%AdvancedToggle.pressed.connect(_on_advanced_toggled)
+	_advanced_open = _has_advanced_settings()
 	_update_settings_ui()
 
 func _input(event: InputEvent) -> void:
@@ -145,6 +146,10 @@ func _update_hotkey_button_text() -> void:
 func _update_advanced_toggle_text() -> void:
 	%AdvancedToggle.text = "%s Advanced settings" % ("▾" if _advanced_open else "▸")
 	%AdvancedBody.visible = _advanced_open
+
+func _has_advanced_settings() -> bool:
+	return active_metadata.is_dedicated_scene() \
+		or active_metadata.get_game_mode_settings().get_enabled()
 
 func _save_settings() -> void:
 	ActiveWidgetMetadata.update_metadata(active_widget_metadata, active_metadata)

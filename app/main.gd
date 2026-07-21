@@ -14,6 +14,7 @@ var tray_icon_supported = (
 
 func _ready() -> void:
 	get_tree().set_auto_accept_quit(false)
+	GlobalKeyBridge.set_key_repeat_enabled(AppSettings.get_key_repeat_enabled())
 	
 	var win = get_window()
 	win.title = "Widget app"

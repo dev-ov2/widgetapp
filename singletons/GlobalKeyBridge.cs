@@ -32,6 +32,7 @@ public partial class GlobalKeyBridge : Node
 	readonly HashSet<KeyCode> _pressedKeys = new();
 	readonly HashSet<KeyCode> _consumedChordKeys = new();
 	int _inputCaptureDepth;
+	bool _keyRepeatEnabled;
 	int _lastSharpHookKeyCode;
 	bool _lastKeyPressed;
 	bool _lastCtrl;
@@ -89,6 +90,11 @@ public partial class GlobalKeyBridge : Node
 	public void unregister_chord(string chordId)
 	{
 		_chords.Remove(chordId);
+	}
+
+	public void set_key_repeat_enabled(bool enabled)
+	{
+		_keyRepeatEnabled = enabled;
 	}
 
 	public void push_input_capture()
@@ -179,15 +185,19 @@ public partial class GlobalKeyBridge : Node
 
 		if (pressed)
 		{
-			if (!_pressedKeys.Add(keyCode))
+			var firstPress = _pressedKeys.Add(keyCode);
+			if (!firstPress && !_keyRepeatEnabled)
 				return;
 
-			if (!IsModifierKeyCode(sharpHookKeyCode)
+			if (firstPress
+				&& !IsModifierKeyCode(sharpHookKeyCode)
 				&& TryEmitMatchingChords(sharpHookKeyCode, ctrl, alt, shift, meta))
 			{
 				_consumedChordKeys.Add(keyCode);
 				return;
 			}
+			if (_consumedChordKeys.Contains(keyCode))
+				return;
 		}
 		else
 		{
