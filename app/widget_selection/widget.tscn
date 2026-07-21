@@ -5,6 +5,22 @@
 [ext_resource type="Script" uid="uid://dno0j4m8ih8jm" path="res://app/widget_selection/chip_container.gd" id="2_lnsc5"]
 [ext_resource type="PackedScene" uid="uid://bqwp34jjwww5d" path="res://app/widget_selection/chip.tscn" id="3_orir1"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_advanced"]
+content_margin_left = 10.0
+content_margin_top = 8.0
+content_margin_right = 10.0
+content_margin_bottom = 8.0
+bg_color = Color(1, 1, 1, 0.04)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 0.08)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
 [node name="Widget" type="VBoxContainer" unique_id=1683931607]
 custom_minimum_size = Vector2(384, 0)
 offset_right = 384.0
@@ -117,40 +133,6 @@ theme_override_font_sizes/font_size = 12
 text = "100%"
 horizontal_alignment = 2
 
-[node name="SizeRow" type="HBoxContainer" parent="Settings" unique_id=1900100006]
-layout_mode = 2
-
-[node name="SizeLabel" type="Label" parent="Settings/SizeRow" unique_id=1900100007]
-custom_minimum_size = Vector2(64, 0)
-layout_mode = 2
-theme_override_font_sizes/font_size = 12
-text = "Size"
-
-[node name="WidthLineEdit" type="LineEdit" parent="Settings/SizeRow" unique_id=1900100008]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(72, 28)
-layout_mode = 2
-placeholder_text = "W"
-alignment = 1
-
-[node name="SizeX" type="Label" parent="Settings/SizeRow" unique_id=1900100009]
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 0.53333336)
-theme_override_font_sizes/font_size = 12
-text = "×"
-
-[node name="HeightLineEdit" type="LineEdit" parent="Settings/SizeRow" unique_id=1900100010]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(72, 28)
-layout_mode = 2
-placeholder_text = "H"
-alignment = 1
-
-[node name="DedicatedSceneCheck" type="CheckButton" parent="Settings" unique_id=1900100019]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Dedicated scene"
-
 [node name="OpacityRow" type="HBoxContainer" parent="Settings" unique_id=1900100011]
 layout_mode = 2
 
@@ -203,6 +185,148 @@ theme_override_colors/font_color = Color(1, 1, 1, 0.53333336)
 theme_override_font_sizes/font_size = 12
 text = "100%"
 horizontal_alignment = 2
+
+[node name="AdvancedCard" type="PanelContainer" parent="Settings" unique_id=1900100100]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_advanced")
+
+[node name="AdvancedVBox" type="VBoxContainer" parent="Settings/AdvancedCard" unique_id=1900100101]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="AdvancedToggle" type="Button" parent="Settings/AdvancedCard/AdvancedVBox" unique_id=1900100102]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.75)
+flat = true
+alignment = 0
+text = "▸ Advanced settings"
+
+[node name="AdvancedBody" type="VBoxContainer" parent="Settings/AdvancedCard/AdvancedVBox" unique_id=1900100103]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="LayoutGroup" type="VBoxContainer" parent="Settings/AdvancedCard/AdvancedVBox/AdvancedBody" unique_id=1900100110]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="LayoutGroupTitle" type="Label" parent="Settings/AdvancedCard/AdvancedVBox/AdvancedBody/LayoutGroup" unique_id=1900100111]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.7)
+theme_override_font_sizes/font_size = 12
+text = "Layout"
+
+[node name="SizeRow" type="HBoxContainer" parent="Settings/AdvancedCard/AdvancedVBox/AdvancedBody/LayoutGroup" unique_id=1900100006]
+layout_mode = 2
+
+[node name="SizeLabel" type="Label" parent="Settings/AdvancedCard/AdvancedVBox/AdvancedBody/LayoutGroup/SizeRow" unique_id=1900100007]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Size"
+
+[node name="WidthLineEdit" type="LineEdit" parent="Settings/AdvancedCard/AdvancedVBox/AdvancedBody/LayoutGroup/SizeRow" unique_id=1900100008]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(72, 28)
+layout_mode = 2
+placeholder_text = "W"
+alignment = 1
+
+[node name="SizeX" type="Label" parent="Settings/AdvancedCard/AdvancedVBox/AdvancedBody/LayoutGroup/SizeRow" unique_id=1900100009]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.53333336)
+theme_override_font_sizes/font_size = 12
+text = "×"
+
+[node name="HeightLineEdit" type="LineEdit" parent="Settings/AdvancedCard/AdvancedVBox/AdvancedBody/LayoutGroup/SizeRow" unique_id=1900100010]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(72, 28)
+layout_mode = 2
+placeholder_text = "H"
+alignment = 1
+
+[node name="SizeDescription" type="Label" parent="Settings/AdvancedCard/AdvancedVBox/AdvancedBody/LayoutGroup" unique_id=1900100112]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.45)
+theme_override_font_sizes/font_size = 11
+text = "Exact pixel size of the widget window. Disabled scale uses these dimensions directly when Dedicated scene is on."
+autowrap_mode = 3
+
+[node name="DedicatedSceneCheck" type="CheckButton" parent="Settings/AdvancedCard/AdvancedVBox/AdvancedBody/LayoutGroup" unique_id=1900100019]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Dedicated scene"
+
+[node name="DedicatedSceneDescription" type="Label" parent="Settings/AdvancedCard/AdvancedVBox/AdvancedBody/LayoutGroup" unique_id=1900100113]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.45)
+theme_override_font_sizes/font_size = 11
+text = "Resizes the layout to fill the window size instead of scaling the whole widget. Useful for scene packs that should stretch cleanly."
+autowrap_mode = 3
+
+[node name="GameModeGroup" type="VBoxContainer" parent="Settings/AdvancedCard/AdvancedVBox/AdvancedBody" unique_id=1900100120]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="GameModeGroupTitle" type="Label" parent="Settings/AdvancedCard/AdvancedVBox/AdvancedBody/GameModeGroup" unique_id=1900100121]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.7)
+theme_override_font_sizes/font_size = 12
+text = "Game mode"
+
+[node name="GameModeCheck" type="CheckButton" parent="Settings/AdvancedCard/AdvancedVBox/AdvancedBody/GameModeGroup" unique_id=1900100020]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Game mode"
+
+[node name="GameModeDescription" type="Label" parent="Settings/AdvancedCard/AdvancedVBox/AdvancedBody/GameModeGroup" unique_id=1900100122]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.45)
+theme_override_font_sizes/font_size = 11
+text = "Makes this widget focusable on demand. Choose a hotkey to activate it; while unfocused it ignores clicks, then press the hotkey to focus and interact."
+autowrap_mode = 3
+
+[node name="GameModeOptions" type="VBoxContainer" parent="Settings/AdvancedCard/AdvancedVBox/AdvancedBody/GameModeGroup" unique_id=1900100021]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="HotkeyRow" type="HBoxContainer" parent="Settings/AdvancedCard/AdvancedVBox/AdvancedBody/GameModeGroup/GameModeOptions" unique_id=1900100022]
+layout_mode = 2
+
+[node name="HotkeyLabel" type="Label" parent="Settings/AdvancedCard/AdvancedVBox/AdvancedBody/GameModeGroup/GameModeOptions/HotkeyRow" unique_id=1900100023]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Hotkey"
+
+[node name="HotkeyButton" type="Button" parent="Settings/AdvancedCard/AdvancedVBox/AdvancedBody/GameModeGroup/GameModeOptions/HotkeyRow" unique_id=1900100024]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Click to set"
+
+[node name="HotkeyDescription" type="Label" parent="Settings/AdvancedCard/AdvancedVBox/AdvancedBody/GameModeGroup/GameModeOptions" unique_id=1900100123]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.45)
+theme_override_font_sizes/font_size = 11
+text = "Click the button, then press a key combination (for example Ctrl+G). Escape cancels. Works even while other apps are focused."
+autowrap_mode = 3
+
+[node name="VisibleWhenNotFocusedCheck" type="CheckButton" parent="Settings/AdvancedCard/AdvancedVBox/AdvancedBody/GameModeGroup/GameModeOptions" unique_id=1900100025]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Visible when not focused"
+
+[node name="VisibleWhenNotFocusedDescription" type="Label" parent="Settings/AdvancedCard/AdvancedVBox/AdvancedBody/GameModeGroup/GameModeOptions" unique_id=1900100124]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.45)
+theme_override_font_sizes/font_size = 11
+text = "When on, the widget stays on-screen while unfocused (but not clickable). When off, the hotkey also shows and hides the widget."
+autowrap_mode = 3
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="." unique_id=1748343176]
 layout_mode = 2

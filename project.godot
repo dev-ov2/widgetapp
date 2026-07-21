@@ -25,6 +25,7 @@ GlobalKeyBridge="*uid://dip17kd514rcv"
 
 window/size/mode=1
 window/size/transparent=true
+window/energy_saving/keep_screen_on=false
 window/subwindows/embed_subwindows=false
 window/per_pixel_transparency/allowed=true
 

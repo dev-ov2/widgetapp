@@ -2,6 +2,7 @@ class_name AppSettings
 
 const PATH := "user://config/app.cfg"
 const LANDING_CONFIG_KEY = "landing"
+const INPUT_CONFIG_KEY = "input"
 const RUN_VALUE_NAME := "widgetapp"
 
 static func _ensure_config_dir() -> void:
@@ -20,6 +21,15 @@ static func set_hide_on_startup(enabled: bool) -> void:
 	_ensure_config_dir()
 	var config := _load()
 	config.set_value(LANDING_CONFIG_KEY, "hide_on_startup", enabled)
+	config.save(PATH)
+
+static func get_key_repeat_enabled() -> bool:
+	return bool(_load().get_value(INPUT_CONFIG_KEY, "key_repeat_enabled", false))
+
+static func set_key_repeat_enabled(enabled: bool) -> void:
+	_ensure_config_dir()
+	var config := _load()
+	config.set_value(INPUT_CONFIG_KEY, "key_repeat_enabled", enabled)
 	config.save(PATH)
 
 static func get_launch_on_startup() -> bool:
