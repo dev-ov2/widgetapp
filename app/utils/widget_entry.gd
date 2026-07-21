@@ -17,12 +17,20 @@ var shop: Dictionary
 var shop_window: Window
 
 const DynamicPassthrough = preload("res://app/utils//DynamicPassthrough.cs")
+const WindowFocusController = preload("res://app/utils/WindowFocusController.cs")
+const WidgetGameModeControllerScript = preload("res://app/utils/WidgetGameModeController.gd")
 const LOGICAL_NODE_SCRIPT = preload("res://app/utils/logic/logical_node.gd")
 const WR_COMPONENT = preload("res://addons/widgetry_runtime/runtime/wr_layout_component.gd")
 const EDIT_BORDER_COLOR = Color(0.0, 0.914, 0.945)
 
 var passthrough_node
+var window_focus_controller
+var game_mode_controller: WidgetGameModeController
+var _pending_game_mode_settings: WidgetGameModeSettings
 var _edit_border: Panel
+var _configured_volume: float = 1.0
+var _pack_suppression_snapshot: Array[Dictionary] = []
+var _scene_mouse_filter_snapshot: Array[Dictionary] = []
 
 func set_widget_data(new_widget_data: WidgetData) -> void:
 	widget_data = new_widget_data
@@ -30,9 +38,17 @@ func set_widget_data(new_widget_data: WidgetData) -> void:
 
 func apply_display_settings(opacity: float, volume: float) -> void:
 	modulate.a = clampf(opacity, 0.0, 1.0)
+	_configured_volume = clampf(volume, 0.0, 1.0)
+	_apply_effective_volume()
+
+func _apply_effective_volume() -> void:
+	var suppressed := game_mode_controller != null and game_mode_controller.is_suspended()
+	var volume := 0.0 if suppressed else _configured_volume
 	_apply_volume(self, volume)
+	_set_pack_simulation_suppressed(self, suppressed)
 	if shop_window and is_instance_valid(shop_window):
 		_apply_volume(shop_window, volume)
+		_set_pack_simulation_suppressed(shop_window, suppressed)
 
 func _apply_volume(root: Node, volume: float) -> void:
 	var linear := clampf(volume, 0.0, 1.0)
@@ -49,14 +65,136 @@ func _set_volume_recursive(node: Node, volume_db: float) -> void:
 	for child in node.get_children():
 		_set_volume_recursive(child, volume_db)
 
+func _set_pack_simulation_suppressed(node: Node, suppressed: bool) -> void:
+	if node is SubViewport:
+		_set_subviewport_suppressed(node as SubViewport, suppressed)
+	
+	elif node is SubViewportContainer:
+		(node as SubViewportContainer).process_mode = \
+			Node.PROCESS_MODE_DISABLED if suppressed else Node.PROCESS_MODE_INHERIT
+	
+	for child in node.get_children():
+		_set_pack_simulation_suppressed(child, suppressed)
+
+func _set_subviewport_suppressed(viewport: SubViewport, suppressed: bool) -> void:
+	if suppressed:
+		if _find_viewport_snapshot(viewport) < 0:
+			_pack_suppression_snapshot.append({
+				"viewport": viewport,
+				"process_mode": viewport.process_mode,
+				"render_target_update_mode": viewport.render_target_update_mode,
+				"audio_listener_enable_2d": viewport.audio_listener_enable_2d,
+				"audio_listener_enable_3d": viewport.audio_listener_enable_3d,
+			})
+	
+		viewport.process_mode = Node.PROCESS_MODE_DISABLED
+		viewport.render_target_update_mode = SubViewport.UPDATE_DISABLED
+		viewport.audio_listener_enable_2d = false
+		viewport.audio_listener_enable_3d = false
+	
+		for child in viewport.get_children():
+			_suppress_pack_tree(child)
+	else:
+		_restore_viewport_snapshot(viewport)
+	
+		for child in viewport.get_children():
+			_unsuppress_pack_tree(child)
+
+func _find_viewport_snapshot(viewport: SubViewport) -> int:
+	for i in _pack_suppression_snapshot.size():
+		var entry: Dictionary = _pack_suppression_snapshot[i]
+
+		if entry.get("viewport") == viewport:
+			return i
+	
+	return -1
+
+func _restore_viewport_snapshot(viewport: SubViewport) -> void:
+	var index := _find_viewport_snapshot(viewport)
+	if index < 0:
+		viewport.process_mode = Node.PROCESS_MODE_INHERIT
+		viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS
+		viewport.audio_listener_enable_2d = true
+		viewport.audio_listener_enable_3d = false
+		return
+	
+	var entry: Dictionary = _pack_suppression_snapshot[index]
+	
+	viewport.process_mode = entry.process_mode
+	viewport.render_target_update_mode = entry.render_target_update_mode
+	viewport.audio_listener_enable_2d = entry.audio_listener_enable_2d
+	viewport.audio_listener_enable_3d = entry.audio_listener_enable_3d
+	
+	_pack_suppression_snapshot.remove_at(index)
+
+func _suppress_pack_tree(node: Node) -> void:
+	node.process_mode = Node.PROCESS_MODE_DISABLED
+	
+	if node is AudioStreamPlayer:
+		var player := node as AudioStreamPlayer
+		player.stream_paused = true
+		player.volume_db = -80.0
+	
+	elif node is AudioStreamPlayer2D:
+		var player2d := node as AudioStreamPlayer2D
+		player2d.stream_paused = true
+		player2d.volume_db = -80.0
+	
+	elif node is AudioStreamPlayer3D:
+		var player3d := node as AudioStreamPlayer3D
+		player3d.stream_paused = true
+		player3d.volume_db = -80.0
+	
+	for child in node.get_children():
+		_suppress_pack_tree(child)
+
+func _unsuppress_pack_tree(node: Node) -> void:
+	node.process_mode = Node.PROCESS_MODE_INHERIT
+	
+	if node is AudioStreamPlayer:
+		(node as AudioStreamPlayer).stream_paused = false
+	elif node is AudioStreamPlayer2D:
+		(node as AudioStreamPlayer2D).stream_paused = false
+	elif node is AudioStreamPlayer3D:
+		(node as AudioStreamPlayer3D).stream_paused = false
+	for child in node.get_children():
+		_unsuppress_pack_tree(child)
+
 func set_draggable(new_draggable: bool) -> void:
+	var changed := draggable != new_draggable
 	draggable = new_draggable
+	if changed:
+		_set_scene_drag_passthrough(draggable)
 	handle_passthrough()
 
-func handle_passthrough() -> void:
-	if _focus_mode:
+func _set_scene_drag_passthrough(enabled: bool) -> void:
+	if enabled:
+		_scene_mouse_filter_snapshot.clear()
+		_capture_scene_mouse_filters(self)
 		return
-	passthrough_node.set_accept_all_input(draggable)
+	_restore_scene_mouse_filters()
+
+func _capture_scene_mouse_filters(node: Node) -> void:
+	if node is SubViewportContainer:
+		var container := node as SubViewportContainer
+		_scene_mouse_filter_snapshot.append({
+			"container": container,
+			"mouse_filter": container.mouse_filter,
+		})
+		container.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	for child in node.get_children():
+		_capture_scene_mouse_filters(child)
+
+func _restore_scene_mouse_filters() -> void:
+	for entry in _scene_mouse_filter_snapshot:
+		var container := entry["container"] as SubViewportContainer
+		if is_instance_valid(container):
+			container.mouse_filter = entry["mouse_filter"]
+	_scene_mouse_filter_snapshot.clear()
+
+func handle_passthrough() -> void:
+	if game_mode_controller != null:
+		game_mode_controller.apply_passthrough(draggable)
 
 func set_edit_border(enabled: bool) -> void:
 	_prepare_edit_border()
@@ -84,6 +222,10 @@ func set_widget_focus_mode(enabled: bool) -> void:
 	if enabled == _focus_mode:
 		return
 	_focus_mode = enabled
+	
+	if game_mode_controller != null:
+		game_mode_controller.set_focus_mode(enabled)
+	
 	if enabled:
 		_buttons_disabled_by_focus.clear()
 		_disable_interactive_buttons(self)
@@ -99,6 +241,18 @@ func set_widget_focus_mode(enabled: bool) -> void:
 		if passthrough_node:
 			handle_passthrough()
 
+func apply_game_mode_settings(settings: WidgetGameModeSettings) -> void:
+	if game_mode_controller == null:
+		_pending_game_mode_settings = settings
+		return
+	
+	_apply_game_mode_settings(settings)
+
+func _apply_game_mode_settings(settings: WidgetGameModeSettings) -> void:
+	var id := widget_data.get_metadata().get_id() if widget_data != null else ""
+	
+	game_mode_controller.apply_settings(settings, id, get_widget_pack_zip_files())
+
 func _disable_interactive_buttons(node: Node) -> void:
 	if node is BaseButton:
 		var button := node as BaseButton
@@ -111,14 +265,48 @@ func _disable_interactive_buttons(node: Node) -> void:
 func _ready() -> void:
 	passthrough_node = DynamicPassthrough.new()
 	add_child(passthrough_node)
-	GlobalKeyBridge.GlobalKeyPressed.connect(_on_global_key_pressed)
+	window_focus_controller = WindowFocusController.new()
+	add_child(window_focus_controller)
+	
+	game_mode_controller = WidgetGameModeControllerScript.new()
+	add_child(game_mode_controller)
+	
+	game_mode_controller.setup(self, passthrough_node, window_focus_controller)
+	game_mode_controller.state_changed.connect(_on_game_mode_state_changed)
+	
+	if _pending_game_mode_settings != null:
+		_apply_game_mode_settings(_pending_game_mode_settings)
+		_pending_game_mode_settings = null
+	
+	var key_bridge := get_tree().root.get_node_or_null("GlobalKeyBridge")
+	
+	if key_bridge != null:
+		if !key_bridge.GlobalKeyPressed.is_connected(_on_global_key_pressed):
+			key_bridge.GlobalKeyPressed.connect(_on_global_key_pressed)
+		if !key_bridge.GlobalKeyCaptured.is_connected(_on_global_key_captured):
+			key_bridge.GlobalKeyCaptured.connect(_on_global_key_captured)
+	
 	_connect_action_button()
+
+func _exit_tree() -> void:
+	_restore_scene_mouse_filters()
+	var key_bridge := get_tree().root.get_node_or_null("GlobalKeyBridge") if is_inside_tree() else null
+	
+	if key_bridge != null:
+		if key_bridge.GlobalKeyPressed.is_connected(_on_global_key_pressed):
+			key_bridge.GlobalKeyPressed.disconnect(_on_global_key_pressed)
+		if key_bridge.GlobalKeyCaptured.is_connected(_on_global_key_captured):
+			key_bridge.GlobalKeyCaptured.disconnect(_on_global_key_captured)
+
+func _on_game_mode_state_changed() -> void:
+	_apply_effective_volume()
+	handle_passthrough()
 
 func _connect_action_button() -> void:
 	if %Panel.has_signal("button_action") and !%Panel.button_action.is_connected(_on_layout_button_pressed):
 		%Panel.button_action.connect(_on_layout_button_pressed)
 
-func _gui_input(event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if draggable:
 			if event.button_index == MOUSE_BUTTON_LEFT:
@@ -155,6 +343,30 @@ func _layout_dict() -> Dictionary:
 
 func _package_root() -> String:
 	return widget_data.get_metadata().get_absolute_path()
+
+func get_widget_pack_zip_files() -> Array[String]:
+	var files: Array[String] = []
+	
+	if widget_data == null:
+		return files
+	
+	var root := _package_root()
+	
+	for component in widget_data.get_layout().get_components():
+		if component.get_type() != "Scene":
+			continue
+		
+		var pack_path := str(component.get_metadata().get("pack_path", "")).trim_prefix("./")
+		if pack_path.is_empty():
+			continue
+		
+		var absolute := root.path_join(pack_path).simplify_path()
+		if !absolute.to_lower().ends_with(".zip"):
+			continue
+		
+		if FileAccess.file_exists(absolute) and absolute not in files:
+			files.append(absolute)
+	return files
 
 func _variables_for_mount(save_data: SaveData) -> Dictionary:
 	var variables := {}
@@ -289,7 +501,28 @@ func _get_logic_components(stage: Studio.LogicStage, action: Studio.LogicOption,
 		return c.get_option(stage) == action\
 		 and c.get_metadata(stage).get("source", "") == source)
 
+func _on_global_key_captured() -> void:
+	if game_mode_controller == null or !game_mode_controller.is_focused():
+		return
+	
+	var bridge := get_tree().root.get_node_or_null("GlobalKeyBridge")
+	if bridge == null or !bridge.has_method("build_last_key_event"):
+		return
+	
+	var event: InputEventKey = bridge.build_last_key_event()
+	if event == null:
+		return
+	
+	var window := get_parent() as Window
+	if window != null and window.has_focus():
+		return
+	
+	_inject_captured_key_into_scene(event)
+
 func _on_global_key_pressed() -> void:
+	if game_mode_controller != null and game_mode_controller.is_suspended():
+		return
+
 	_dispatch_key_pressed(%Panel)
 
 	var logic_components = widget_data.get_logic().get_components()\
@@ -300,6 +533,20 @@ func _on_global_key_pressed() -> void:
 
 	for component in logic_components:
 		handle_logic_component(component, save_data)
+
+func _inject_captured_key_into_scene(event: InputEventKey) -> void:
+	Input.parse_input_event(event.duplicate())
+	
+	_push_input_event_to_subviewports(%Panel, event)
+	if event.pressed:
+		_dispatch_key_pressed(%Panel)
+
+func _push_input_event_to_subviewports(node: Node, event: InputEvent) -> void:
+	if node is SubViewport:
+		(node as SubViewport).push_input(event.duplicate())
+	
+	for child in node.get_children():
+		_push_input_event_to_subviewports(child, event)
 
 func _dispatch_key_pressed(node: Node) -> void:
 	if node is SubViewport and node.get_child_count() > 0:

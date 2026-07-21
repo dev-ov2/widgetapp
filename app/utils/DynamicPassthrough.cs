@@ -29,7 +29,6 @@ public partial class DynamicPassthrough : Node
 	[DllImport(ObjCLibrary)]
 	private static extern IntPtr sel_registerName(string str);
 
-	// We pass a 'byte' instead of 'bool' to guarantee safe 1-byte transmission to Apple's BOOL
 	[DllImport(ObjCLibrary, EntryPoint = "objc_msgSend")]
 	private static extern void objc_msgSend_bool(IntPtr receiver, IntPtr selector, byte arg);
 
@@ -38,8 +37,9 @@ public partial class DynamicPassthrough : Node
 	// CLASS STATE
 	// ==========================================
 	private IntPtr _hwnd;
-	private bool _isPassthrough = false;
-	private bool _acceptAllInput = false;
+	private bool _isPassthrough;
+	private bool _acceptAllInput;
+	private bool _forcePassthrough;
 	private string _osName;
 	private int _windowId;
 
@@ -54,45 +54,57 @@ public partial class DynamicPassthrough : Node
 	{
 		_acceptAllInput = acceptAll;
 		if (acceptAll)
+		{
+			_forcePassthrough = false;
 			SetPassthrough(false);
-		// When false, _Process will re-apply hover logic next frame.
+		}
+		// When false, _Process re-applies hover / force logic next frame.
+	}
+
+	public void set_force_passthrough(bool force)
+	{
+		_forcePassthrough = force;
+		if (force)
+			SetPassthrough(true);
+		else if (_acceptAllInput)
+			SetPassthrough(false);
 	}
 
 	public override void _Ready()
 	{
 		_osName = OS.GetName();
-		_windowId = GetWindow().GetWindowId();
-
-
-		// We only need the raw pointer for Windows and macOS
-		if (_osName == "Windows" || _osName == "macOS")
-		{
-			_hwnd = (IntPtr)DisplayServer.WindowGetNativeHandle(DisplayServer.HandleType.WindowHandle, _windowId);
-		}
-
-		GD.Print($"Passthrough on hwnd={_hwnd} id={_windowId} path={GetPath()}");
-
-
-		// Force initial state
-		_isPassthrough = false; 
+		_ResolveNativeHandle();
 		SetPassthrough(true);
 	}
 
-	public override void _Process(double delta)
+	public override void _Process(double _)
 	{
+		if (_hwnd == IntPtr.Zero && (_osName == "Windows" || _osName == "macOS"))
+		{
+			_ResolveNativeHandle();
+			if (_hwnd != IntPtr.Zero)
+				ApplyNativePassthrough(_isPassthrough);
+		}
+
+		if (_forcePassthrough)
+		{
+			if (!_isPassthrough)
+				SetPassthrough(true);
+			return;
+		}
+
 		if (_acceptAllInput)
 		{
 			if (_isPassthrough)
 				SetPassthrough(false);
 			return;
 		}
-	
+
 		Vector2I globalMousePos = DisplayServer.MouseGetPosition();
 		Vector2I windowPos = GetWindow().Position;
 		Vector2 localMousePos = globalMousePos - windowPos;
 
 		bool isHoveringUI = false;
-
 		foreach (var control in _clickableElements)
 		{
 			if (control != null && control.IsVisibleInTree() && control.GetGlobalRect().HasPoint(localMousePos))
@@ -106,12 +118,24 @@ public partial class DynamicPassthrough : Node
 		else if (!isHoveringUI && !_isPassthrough) SetPassthrough(true);
 	}
 
+	private void _ResolveNativeHandle()
+	{
+		_windowId = GetWindow().GetWindowId();
+		if (_osName == "Windows" || _osName == "macOS")
+			_hwnd = (IntPtr)DisplayServer.WindowGetNativeHandle(DisplayServer.HandleType.WindowHandle, _windowId);
+	}
+
 	private void SetPassthrough(bool enable)
 	{
-		// Safety guard so we don't spam the OS every frame
-		if (_isPassthrough == enable) return;
+		if (_isPassthrough == enable)
+			return;
 		_isPassthrough = enable;
 
+		ApplyNativePassthrough(enable);
+	}
+
+	private void ApplyNativePassthrough(bool enable)
+	{
 		switch (_osName)
 		{
 			case "Windows":
@@ -121,38 +145,38 @@ public partial class DynamicPassthrough : Node
 				SetPassthroughMac(enable);
 				break;
 			default:
-				// Linux / FreeBSD / etc.
 				SetPassthroughLinux(enable);
 				break;
 		}
 	}
 
-	// --- Windows Implementation ---
 	private void SetPassthroughWindows(bool enable)
 	{
+		if (_hwnd == IntPtr.Zero)
+			return;
+
 		long exStyle = (long)GetWindowLong(_hwnd, GWL_EXSTYLE);
-		
-		if (enable) exStyle |= (WS_EX_TRANSPARENT | WS_EX_LAYERED);
-		else exStyle &= ~WS_EX_TRANSPARENT;
-		
+		if (enable)
+			exStyle |= (WS_EX_TRANSPARENT | WS_EX_LAYERED);
+		else
+			exStyle &= ~WS_EX_TRANSPARENT;
+
 		SetWindowLong(_hwnd, GWL_EXSTYLE, (IntPtr)exStyle);
 	}
 
-	// --- macOS Implementation ---
 	private void SetPassthroughMac(bool enable)
 	{
-		// In Objective-C this executes: [window setIgnoresMouseEvents:YES/NO]
+		if (_hwnd == IntPtr.Zero)
+			return;
+
 		IntPtr selector = sel_registerName("setIgnoresMouseEvents:");
 		objc_msgSend_bool(_hwnd, selector, (byte)(enable ? 1 : 0));
 	}
 
-	// --- Linux Implementation ---
 	private void SetPassthroughLinux(bool enable)
 	{
 		if (enable)
 		{
-			// Create a tiny 1x1 pixel region in the corner. 
-			// Clicks outside this polygon will pass straight through the window!
 			Vector2[] tinyRegion = new Vector2[] {
 				new Vector2(0, 0),
 				new Vector2(1, 0),
@@ -163,15 +187,13 @@ public partial class DynamicPassthrough : Node
 		}
 		else
 		{
-			// Passing an empty array resets the window, making the whole thing clickable again
 			DisplayServer.WindowSetMousePassthrough(new Vector2[] { }, _windowId);
 		}
 	}
 
-	// --- Win32 Wrappers ---
-	private IntPtr GetWindowLong(IntPtr hWnd, int nIndex) => 
+	private IntPtr GetWindowLong(IntPtr hWnd, int nIndex) =>
 		IntPtr.Size == 8 ? GetWindowLongPtr64(hWnd, nIndex) : GetWindowLong32(hWnd, nIndex);
 
-	private IntPtr SetWindowLong(IntPtr hWnd, int nIndex, IntPtr dwNewLong) => 
+	private IntPtr SetWindowLong(IntPtr hWnd, int nIndex, IntPtr dwNewLong) =>
 		IntPtr.Size == 8 ? SetWindowLongPtr64(hWnd, nIndex, dwNewLong) : SetWindowLong32(hWnd, nIndex, dwNewLong);
 }

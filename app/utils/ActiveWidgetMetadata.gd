@@ -7,6 +7,7 @@ var position: Vector2
 var opacity: float
 var volume: float
 var dedicated_scene: bool
+var game_mode_settings: WidgetGameModeSettings
 
 func _init(_data: Variant) -> void:
 	var data = IO.parse_dict(_data)
@@ -17,6 +18,8 @@ func _init(_data: Variant) -> void:
 	opacity = clampf(float(data.get("opacity", 1.0)), 0.0, 1.0)
 	volume = clampf(float(data.get("volume", 1.0)), 0.0, 1.0)
 	dedicated_scene = bool(data.get("dedicated_scene", false))
+	var game_mode_data: Dictionary = data.get("game_mode_settings", data)
+	game_mode_settings = WidgetGameModeSettings.new(game_mode_data)
 
 func get_id() -> String:
 	return id
@@ -41,6 +44,9 @@ func get_volume() -> float:
 
 func is_dedicated_scene() -> bool:
 	return dedicated_scene
+
+func get_game_mode_settings() -> WidgetGameModeSettings:
+	return game_mode_settings
 
 func set_id(new_id: String) -> void:
 	id = new_id
@@ -71,6 +77,7 @@ func to_dict() -> Dictionary:
 		"opacity": opacity,
 		"volume": volume,
 		"dedicated_scene": dedicated_scene,
+		"game_mode_settings": game_mode_settings.to_dict(),
 	}
 	if has_saved_position():
 		dict["position"] = position

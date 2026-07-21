@@ -111,6 +111,8 @@ func _apply_focus_mode_to_widget(window: Window, enabled: bool) -> void:
 		
 
 func _open_widget_selection() -> void:
+	if focus_mode_enabled:
+		_set_focus_mode(false)
 	var user_widget_metadata = IO.get_user_widgets()
 	var active_widget_metadata = IO.get_active_widgets()
 	var widget_selection_scene = load("res://app/widget_selection/widget_selection.tscn").instantiate()
@@ -208,6 +210,9 @@ func _apply_widget_settings(window: Window, active_metadata: ActiveWidgetMetadat
 			_restore_layout_design_size(control)
 	if entry.has_method("apply_display_settings"):
 		entry.apply_display_settings(active_metadata.get_opacity(), active_metadata.get_volume())
+	if entry.has_method("apply_game_mode_settings"):
+		var game_mode := active_metadata.get_game_mode_settings()
+		entry.apply_game_mode_settings(game_mode)
 
 func _resize_layout_to_size(root: Control, base_size: Vector2, target_size: Vector2) -> void:
 	var ratio := Vector2(

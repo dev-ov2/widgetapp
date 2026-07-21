@@ -179,6 +179,19 @@ func _get_cached_packed_scene(pack_file: String, scene_path: String) -> PackedSc
 	_packed_scene_cache[key] = packed_scene
 	return packed_scene
 
+func _apply_instance_scale(instance: Node, scale_x: float, scale_y: float) -> void:
+	if instance == null:
+		return
+	
+	if instance is Node2D:
+		(instance as Node2D).scale = Vector2(scale_x, scale_y)
+	
+	elif instance is Control:
+		(instance as Control).scale = Vector2(scale_x, scale_y)
+	
+	elif instance is Node3D:
+		(instance as Node3D).scale = Vector3(scale_x, scale_y, 1.0)
+
 func _mount_scene_into_node(target: Node, pack_path: String, scene_path: String, scale_x: float, scale_y: float, force_reload: bool = false) -> void:
 	var sub = target.find_child("SubViewport", true, false)
 	if sub == null:
@@ -186,7 +199,7 @@ func _mount_scene_into_node(target: Node, pack_path: String, scene_path: String,
 	
 	var mount_key = "%s|%s" % [pack_path, scene_path]
 	if !force_reload and target.get_meta("_mounted_scene_key", "") == mount_key and sub.get_child_count() > 0:
-		sub.get_child(0).scale = Vector2(scale_x, scale_y)
+		_apply_instance_scale(sub.get_child(0), scale_x, scale_y)
 		return
 	
 	if pack_path.is_empty() or scene_path.is_empty():
@@ -213,8 +226,12 @@ func _mount_scene_into_node(target: Node, pack_path: String, scene_path: String,
 	for child in sub.get_children():
 		child.free()
 	var instance: Node = packed_scene.instantiate()
+	if sub is SubViewport:
+		(sub as SubViewport).handle_input_locally = true
+		(sub as SubViewport).gui_disable_input = false
+	
 	sub.add_child(instance)
-	instance.scale = Vector2(scale_x, scale_y)
+	_apply_instance_scale(instance, scale_x, scale_y)
 	target.set_meta("_mounted_scene_key", mount_key)
 
 func update_state(new_node: Node, new_component: LayoutComponent, event: Studio.EditorEvent) -> void:
@@ -281,10 +298,18 @@ func _on_text_value_changed(new_text: String, type: String, key: String) -> void
 				var scale_y = float(metadata.get("scale_y", 1))
 				_mount_scene_into_node(node, pack_path, scene_path, scale_x, scale_y, true)
 			elif key == "scale_x":
-				node.find_child("SubViewport").get_child(0).scale.x = float(new_text)
+				_apply_instance_scale(
+					node.find_child("SubViewport").get_child(0),
+					float(new_text),
+					float(metadata.get("scale_y", 1)),
+				)
 				metadata.set("scale_x", float(new_text))
 			elif key == "scale_y":
-				node.find_child("SubViewport").get_child(0).scale.y = float(new_text)
+				_apply_instance_scale(
+					node.find_child("SubViewport").get_child(0),
+					float(metadata.get("scale_x", 1)),
+					float(new_text),
+				)
 				metadata.set("scale_y", float(new_text))
 	
 	component.set_metadata(metadata)
@@ -325,7 +350,7 @@ func _on_general_property_changed(new_text: String, field: String) -> void:
 				var layout = Studio.active_widget.get_layout()
 				var unique = layout.make_unique_name(new_text, component)
 				node.name = unique
-				# Godot may uniquify among siblings — keep layout in sync / free of collisions
+				# Godot may uniquify among siblings; keep layout in sync / free of collisions
 				unique = layout.make_unique_name(str(node.name), component)
 				if str(node.name) != unique:
 					node.name = unique
